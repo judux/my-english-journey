@@ -3,7 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="My English blog for SENA (English Level 6, B1.1+): videos, audios and texts about my family, hobbies, work, travel, the news, media literacy and crime and punishment.">
+<meta name="description" content="Johan Sanchez's English blog for SENA (English Level 6, B1.1+): videos, audios, a brochure, a chronicle, a cover letter, a mind map and posts about media literacy and crime and punishment.">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="My English Journey">
+<meta property="og:title" content="My English Journey · Johan Sanchez">
+<meta property="og:description" content="My English blog for SENA (English Level 6, B1.1+): videos, audios and texts I made during my training.">
+<meta property="og:url" content="https://judux.github.io/my-english-journey/">
+<meta property="og:image" content="https://judux.github.io/my-english-journey/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Learning English, one post at a time. Johan Sanchez, SENA English Level 6.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231D1D1F'/%3E%3Crect x='12' y='34' width='40' height='14' rx='3' fill='%23FFE169'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Segoe UI,Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23FFFFFF'%3EE%3C/text%3E%3C/svg%3E">
 <style>
 :root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; }
@@ -137,7 +150,7 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .hero-body { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; padding: 48px 44px 44px; align-items: center; }
 .eyebrow { font: 500 .75rem/1 var(--mono); letter-spacing: .04em; color: var(--hero-muted); }
 .hero h1 { font-size: clamp(2.6rem, 7vw, 4.75rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.02; margin-top: 18px; }
-.hero h1 .mark { background: var(--hi); color: var(--hi-ink); padding: 0 .12em; border-radius: .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero h1 .mark { background: var(--hi); color: var(--hi-ink); padding: 0 .12em; border-radius: .12em; white-space: nowrap; }
 .hero .lead { color: var(--hero-muted); font-size: 1.125rem; line-height: 1.5; max-width: 44ch; margin: 20px 0 28px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn {
@@ -169,13 +182,18 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 /* Entradas */
 .toolbar { padding: 14px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
 .toolbar::-webkit-scrollbar { display: none; }
+/* Borde que se desvanece cuando hay más filtros por deslizar */
+.toolbar.more-right { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.toolbar.more-left { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); }
+.toolbar.more-left.more-right { -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
 .seg { position: relative; display: inline-flex; padding: 3px; border-radius: 999px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line); }
 .seg-list { display: flex; }
 .seg button {
   font: 500 .875rem/1 var(--ui); color: var(--ink); background: none; border: 0; cursor: pointer;
   padding: 9px 14px; border-radius: 999px; white-space: nowrap; display: flex; gap: 6px; align-items: center;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; transition: opacity .15s ease;
 }
+.seg-list button:active { opacity: .55; }
 .seg button span { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .8125rem; }
 /* Copia de la lista con estilo activo, recortada al botón elegido (clip-path) */
 .seg-active {
@@ -187,7 +205,7 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .seg-active button, .seg-active button span { color: var(--page); }
 .seg-active button span { opacity: .65; }
 
-.grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.grid { padding: 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .card {
   text-decoration: none; color: inherit; background: var(--win); border-radius: 14px; padding: 16px;
   box-shadow: 0 0 0 1px var(--line); display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; min-width: 0;
@@ -200,6 +218,16 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .card h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; }
 .card p { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.45; }
 .card .foot { display: flex; justify-content: space-between; gap: 8px; font-size: .75rem; color: var(--muted); }
+/* Si la última tarjeta queda sola en su fila, ocupa toda la fila en horizontal */
+.card.solo {
+  grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); grid-template-rows: auto 1fr auto;
+  grid-template-areas: "top top" "title desc" "foot foot"; column-gap: 28px;
+}
+.card.solo .top { grid-area: top; }
+.card.solo h3 { grid-area: title; font-size: 1.375rem; }
+.card.solo p { grid-area: desc; }
+.card.solo .foot { grid-area: foot; }
+.card.solo:active { transform: scale(.98); }
 .doc {
   width: 34px; height: 42px; border-radius: 4px 11px 4px 4px; display: grid; place-items: end center; padding-bottom: 6px;
   font: 700 .5625rem/1 var(--mono); color: #fff; letter-spacing: .04em;
@@ -225,7 +253,6 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 }
 .back:active { opacity: .5; }
 article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
-.callout { background: var(--draft-soft); color: var(--draft); border-radius: 12px; padding: 12px 16px; font-size: .9375rem; margin-bottom: 28px; }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .tag { font-size: .75rem; font-weight: 600; color: var(--muted); }
 .tag + .tag::before { content: "·"; margin-right: 8px; }
@@ -245,7 +272,33 @@ article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
 .ev-head { display: flex; align-items: center; gap: 14px; }
 .ev-head > div { flex: 1; min-width: 0; }
 .ev-head .doc { flex: none; }
+.ev-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .ev-code { font: 500 .75rem/1.3 var(--mono); color: var(--muted); }
+.ev-meta .pill { font-size: .625rem; padding: 2px 7px; }
+.wip { display: flex; align-items: center; gap: 8px; margin: 18px 0 0; color: var(--muted); font-size: .9375rem; }
+.wip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--draft); flex: none; }
+
+/* Reproductor de audio */
+.player {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px;
+  padding: 12px 18px 12px 12px; border-radius: 999px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line);
+}
+.play {
+  width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer; display: grid; place-items: center;
+  background: var(--ink); color: var(--page); transition: transform .16s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.play:active { transform: scale(.94); }
+.play svg { width: 18px; height: 18px; fill: currentColor; }
+.play .i-pause, .player.playing .play .i-play { display: none; }
+.player.playing .play .i-pause { display: block; }
+.track { position: relative; height: 28px; cursor: pointer; touch-action: none; display: grid; align-items: center; }
+.track::before { content: ""; height: 4px; border-radius: 4px; background: var(--line); }
+.fill {
+  position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: 4px;
+  background: var(--ink); transform-origin: left; transform: scaleX(0);
+}
+.time { font: 500 .75rem/1 var(--ui); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .evidence h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin-top: 2px; }
 .ev-dek { color: var(--muted); margin: 12px 0 0; }
 .letter {
@@ -300,6 +353,16 @@ figure.media { margin: 32px 0; }
 
 footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 0 44px; color: var(--muted); font-size: .75rem; }
 
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .card:active { transform: scale(.98); }
+  .card.solo { grid-template-columns: 1fr; grid-template-areas: "top" "title" "desc" "foot"; row-gap: 10px; }
+  .card.solo h3 { font-size: 1.125rem; }
+  .menubar .cefr { display: none; }
+}
 @media (max-width: 760px) {
   .menubar nav { display: none; }
   .hero-body { grid-template-columns: 1fr; padding: 32px 22px 28px; gap: 32px; }
@@ -314,7 +377,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .win { animation: fade .2s ease both; }
-  .btn:active, .card:active, .pager a:active { transform: none; }
+  .btn:active, .card:active, .pager a:active, .play:active, .media .sheet:active { transform: none; }
   .note, .note:hover { transform: none; transition: none; }
   .seg-active { transition: clip-path .01s; }
 }
@@ -333,7 +396,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <a href="#posts">Posts</a>
       <a href="#about-me">About me</a>
     </nav>
-    <div class="right"><span>CEFR B1.1+</span><span id="today"></span></div>
+    <div class="right"><span class="cefr">CEFR B1.1+</span><span id="progress"></span></div>
   </div>
 </header>
 
@@ -454,7 +517,7 @@ const POSTS = [
         title: "My Training Program: Software Analysis and Development",
         dek: "A brochure in English about ADSO.",
         media: {
-          type: "image", src: "folleto.png", pdf: "folleto.pdf", width: 1684, height: 1191,
+          type: "image", src: "folleto.jpg", pdf: "folleto.pdf", width: 1684, height: 1190,
           alt: "Brochure about the Software Analysis and Development program (ADSO) at SENA, by Johan David Sanchez Romo. It has three parts: the cover, About the program, and My motivations and interests."
         },
         body: `
@@ -576,7 +639,7 @@ const POSTS = [
         title: "Mind Map: My PLE",
         dek: "Learning English for software development.",
         media: {
-          type: "image", src: "ple.png", pdf: "ple.pdf", width: 1440, height: 809,
+          type: "image", src: "ple.jpg", pdf: "ple.pdf", width: 1440, height: 809,
           alt: "Mind map: My Personal Learning Environment (PLE), learning English for software development. Six branches: information sources, digital learning tools, learning strategies, personal learning network, professional application and my career interests."
         },
         body: `
@@ -609,7 +672,7 @@ const POSTS = [
     title: "Can You Trust Everything You See Online?",
     dek: "Some simple questions I ask myself before I believe or share a piece of news.",
     items: [{
-      kind: "text", status: "draft",
+      kind: "text", status: "ready",
       body: `
 <p>Every day I see a lot of information on my phone: videos on TikTok, messages in WhatsApp groups and posts on Facebook. Some of it is true, some of it is half true and some of it is completely false. The problem is that false news usually looks very real, and it travels faster than the truth.</p>
 <p>Last month my aunt sent a message to our family group. It said that a famous supermarket was giving free food to everyone who shared the message ten times. A lot of people shared it, but it was a scam. When I looked for the supermarket's official page, there was nothing about it. That is when I understood that <em class="v">critical thinking</em> is not only for school. It is a skill we need every day.</p>
@@ -633,7 +696,7 @@ const POSTS = [
     title: "Crime and Punishment: Is Prison the Only Answer?",
     dek: "My opinion about how society should respond when someone breaks the law.",
     items: [{
-      kind: "text", status: "draft",
+      kind: "text", status: "ready",
       body: `
 <p>When people hear about a crime on the news, the first reaction is usually the same: "Put them in jail." I understand this feeling. Crime hurts families, and victims deserve justice. However, I believe prison should not be the only answer for every <em class="v">offender</em>.</p>
 <h2>Different crimes, different punishments</h2>
@@ -662,7 +725,7 @@ const ALIASES = { "meet-my-friend": "introductions", "my-program": "introduction
 
 /* ====== Lógica ====== */
 const KIND = { text: "TXT", video: "MP4", audio: "MP3", slides: "PDF", image: "PNG" };
-const STATUS = { ready: "Published", draft: "Draft", pending: "Coming soon" };
+const STATUS = { ready: "Published", draft: "Draft", pending: "In progress" };
 const has = (p, ...kinds) => p.items.some(it => kinds.includes(it.kind));
 const FILTERS = [
   ["all", "All", () => true],
@@ -675,6 +738,7 @@ const EASE = "cubic-bezier(.23, 1, .32, 1)";
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 let currentFilter = "all";
 let lastCard = null; // de dónde se abrió la entrada, para que la ventana nazca ahí
+let readingSlug = null; // la entrada abierta, para volver a su tarjeta al salir
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -700,13 +764,14 @@ function renderSite() {
   $("chat-title").textContent = SITE.name;
   $("foot-name").textContent = "© " + new Date().getFullYear() + " " + SITE.name;
   $("foot-program").textContent = SITE.program + " · " + SITE.ficha;
-  $("today").textContent = new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
   $("chat").innerHTML = '<div class="day">Today</div>' +
     SITE.about.map(([who, text]) => `<div class="bubble ${who}">${esc(text)}</div>`).join("");
 
   const items = POSTS.flatMap(p => p.items);
   $("count-total").textContent = POSTS.length;
-  $("count-ready").textContent = items.filter(it => it.status === "ready").length + "/" + items.length;
+  const done = items.filter(it => it.status === "ready").length + "/" + items.length;
+  $("count-ready").textContent = done;
+  $("progress").textContent = done + " ready";
   $("count-words").textContent = POSTS.reduce((n, p) => n + p.vocab.length, 0);
 
   // Palabra del día: cambia cada día y es la misma para todos ese día
@@ -735,6 +800,14 @@ function moveSeg(animate) {
   if (!animate) box.style.transition = "none";
   box.style.clipPath = `inset(0 ${right}px 0 ${left}px round 999px)`;
   if (!animate) { box.offsetWidth; box.style.transition = ""; }
+  updateFade();
+}
+
+// Desvanece el borde del filtro hacia donde quedan más opciones por deslizar
+function updateFade() {
+  const t = document.querySelector(".toolbar");
+  t.classList.toggle("more-left", t.scrollLeft > 2);
+  t.classList.toggle("more-right", t.scrollLeft + t.clientWidth < t.scrollWidth - 2);
 }
 
 function docIcons(p) {
@@ -756,6 +829,7 @@ function renderGrid(animate) {
       <div class="foot"><span>${esc(p.guide)}</span><span>${readingTime(p) || (n > 1 ? n + " evidences" : "1 evidence")}</span></div>
     </a>`;
   }).join("");
+  markSolo();
   if (animate && !reduced()) {
     [...$("grid").children].forEach((el, i) => el.animate(
       [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
@@ -764,12 +838,24 @@ function renderGrid(animate) {
   }
 }
 
+// Si la última tarjeta queda sola en su fila, la estira a todo el ancho
+function markSolo() {
+  const cards = [...$("grid").children];
+  const cols = getComputedStyle($("grid")).gridTemplateColumns.split(" ").length;
+  cards.forEach((c, i) => c.classList.toggle("solo", cols > 1 && i === cards.length - 1 && i % cols === 0));
+}
+
+const ICONS = {
+  play: '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>',
+  pause: '<svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>'
+};
+
 function mediaHTML(it, title) {
   const m = it.media;
   if (!m) {
     if (it.kind === "text" && it.body) return "";
-    const what = { video: "The video", audio: "The audio", slides: "The document", image: "The image", text: "The text" }[it.kind];
-    return `<div class="media"><div class="slot"><b>${what} goes here</b>Coming soon.</div></div>`;
+    const what = { video: "video", audio: "recording", slides: "document", image: "image", text: "text" }[it.kind];
+    return `<p class="wip">This ${what} is in progress.</p>`;
   }
   const frame = m.vertical ? "frame vertical" : "frame";
   if (m.type === "youtube") {
@@ -777,8 +863,14 @@ function mediaHTML(it, title) {
     return `<div class="media"><div class="${frame}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0" title="${esc(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>`;
   }
   if (m.type === "video") return `<div class="media"><div class="${frame}"><video controls playsinline preload="metadata" src="${esc(m.src)}" title="${esc(title)}"></video></div></div>`;
-  if (m.type === "audio") return `<div class="media"><audio controls preload="metadata" src="${esc(m.src)}"></audio></div>`;
-  if (m.type === "image") return `<figure class="media"><a class="sheet" href="${esc(m.pdf || m.src)}" target="_blank" rel="noopener"><img src="${esc(m.src)}" alt="${esc(m.alt || title)}" width="${m.width || ""}" height="${m.height || ""}"></a>${m.pdf ? `<figcaption><a class="out" href="${esc(m.pdf)}" target="_blank" rel="noopener">Open the PDF ›</a></figcaption>` : ""}</figure>`;
+  if (m.type === "audio") return `
+    <div class="media"><div class="player">
+      <audio preload="metadata" src="${esc(m.src)}"></audio>
+      <button class="play" type="button" aria-label="Play ${esc(title)}">${ICONS.play}${ICONS.pause}</button>
+      <div class="track" role="slider" tabindex="0" aria-label="Position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00"><div class="fill"></div></div>
+      <span class="time">0:00</span>
+    </div></div>`;
+  if (m.type === "image") return `<figure class="media"><a class="sheet" href="${esc(m.pdf || m.src)}" target="_blank" rel="noopener"><img src="${esc(m.src)}" alt="${esc(m.alt || title)}" width="${m.width || ""}" height="${m.height || ""}" loading="lazy" decoding="async"></a>${m.pdf ? `<figcaption><a class="out" href="${esc(m.pdf)}" target="_blank" rel="noopener">Open the PDF ›</a></figcaption>` : ""}</figure>`;
   if (m.type === "link") return `<div class="media"><div class="slot"><b>${esc(m.label || "Open the file")}</b><a class="out" href="${esc(m.url)}" target="_blank" rel="noopener">Open ›</a></div></div>`;
   return "";
 }
@@ -790,8 +882,10 @@ function itemHTML(p, it) {
     <section class="evidence">
       <div class="ev-head">
         <span class="doc ${it.kind}" aria-hidden="true">${KIND[it.kind]}</span>
-        <div><div class="ev-code">${esc(it.code)}</div><h2>${esc(it.title)}</h2></div>
-        <span class="pill ${it.status}">${STATUS[it.status]}</span>
+        <div>
+          <div class="ev-meta"><span class="ev-code">${esc(it.code)}</span><span class="pill ${it.status}">${STATUS[it.status]}</span></div>
+          <h2>${esc(it.title)}</h2>
+        </div>
       </div>
       ${it.dek ? `<p class="ev-dek">${esc(it.dek)}</p>` : ""}
       ${mediaHTML(it, it.title)}
@@ -804,11 +898,8 @@ function renderPost(p) {
   const i = POSTS.indexOf(p);
   $("reader-file").textContent = p.items.length > 1 ? p.slug + "/" : p.slug + "." + KIND[p.items[0].kind].toLowerCase();
   $("reader-pos").textContent = (i + 1) + " of " + POSTS.length;
-  const note = p.items.some(it => it.status === "draft")
-    ? '<div class="callout">Draft. Read it again and make it sound like you before you publish it.</div>' : "";
   const rt = readingTime(p);
   $("post").innerHTML = `
-    ${note}
     <div class="tags"><span class="tag">${esc(p.guide)}</span><span class="tag">${p.items.length > 1 ? p.items.length + " evidences" : KIND[p.items[0].kind]}</span>${rt ? `<span class="tag">${rt}</span>` : ""}</div>
     <h1>${esc(p.title)}</h1>
     <p class="dek">${esc(p.dek)}</p>
@@ -818,6 +909,60 @@ function renderPost(p) {
   $("pager").innerHTML =
     (prev ? `<a href="#${prev.slug}"><small>‹ Previous</small><span>${esc(prev.title)}</span></a>` : "") +
     (next ? `<a class="next" href="#${next.slug}"><small>Next ›</small><span>${esc(next.title)}</span></a>` : "");
+  $("post").querySelectorAll(".player").forEach(setupPlayer);
+}
+
+const clock = s => !isFinite(s) ? "0:00" : Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+
+// Reproductor propio: play/pausa, barra que se arrastra 1:1 con el dedo y flechas del teclado
+function setupPlayer(root) {
+  const audio = root.querySelector("audio"), btn = root.querySelector(".play");
+  const track = root.querySelector(".track"), fill = root.querySelector(".fill"), time = root.querySelector(".time");
+  let raf = 0, dragging = false;
+
+  const paint = t => {
+    const d = audio.duration || 0;
+    fill.style.transform = `scaleX(${d ? Math.min(1, t / d) : 0})`;
+    time.textContent = audio.paused && t === 0 ? clock(d) : clock(t) + " / " + clock(d);
+    track.setAttribute("aria-valuemax", Math.round(d));
+    track.setAttribute("aria-valuenow", Math.round(t));
+    track.setAttribute("aria-valuetext", clock(t));
+  };
+  const loop = () => { if (!dragging) paint(audio.currentTime); raf = requestAnimationFrame(loop); };
+  const seekTo = x => {
+    const r = track.getBoundingClientRect();
+    const t = Math.max(0, Math.min(1, (x - r.left) / r.width)) * (audio.duration || 0);
+    paint(t);
+    return t;
+  };
+
+  audio.addEventListener("loadedmetadata", () => paint(0));
+  audio.addEventListener("play", () => {
+    document.querySelectorAll(".player audio").forEach(a => a !== audio && a.pause());
+    root.classList.add("playing"); btn.setAttribute("aria-label", "Pause"); raf = requestAnimationFrame(loop);
+  });
+  audio.addEventListener("pause", () => {
+    root.classList.remove("playing"); btn.setAttribute("aria-label", "Play"); cancelAnimationFrame(raf); paint(audio.currentTime);
+  });
+  audio.addEventListener("ended", () => { audio.currentTime = 0; paint(0); });
+  btn.addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
+
+  track.addEventListener("pointerdown", e => {
+    if (!audio.duration) return;
+    dragging = true; track.setPointerCapture(e.pointerId); seekTo(e.clientX);
+  });
+  track.addEventListener("pointermove", e => { if (dragging) seekTo(e.clientX); });
+  const release = e => { if (!dragging) return; dragging = false; audio.currentTime = seekTo(e.clientX); };
+  track.addEventListener("pointerup", release);
+  track.addEventListener("pointercancel", () => { dragging = false; });
+  track.addEventListener("keydown", e => {
+    const step = { ArrowRight: 5, ArrowUp: 5, ArrowLeft: -5, ArrowDown: -5 }[e.key];
+    if (!step || !audio.duration) return;
+    e.preventDefault();
+    audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + step));
+    paint(audio.currentTime);
+  });
+  if (audio.readyState >= 1) paint(0);
 }
 
 function route() {
@@ -825,8 +970,12 @@ function route() {
   if (ALIASES[slug]) { history.replaceState(null, "", "#" + ALIASES[slug]); slug = ALIASES[slug]; }
   const p = POSTS.find(x => x.slug === slug);
   const wasReading = !$("reader").hidden;
+  const leftSlug = readingSlug;
+  if (!p) document.querySelectorAll(".player audio").forEach(a => a.pause());
   $("home").hidden = !!p;
   $("reader").hidden = !p;
+  document.title = p ? p.title + " · My English Journey" : "My English Journey";
+  readingSlug = p ? p.slug : null;
 
   if (p) {
     renderPost(p);
@@ -846,7 +995,19 @@ function route() {
   } else {
     if (wasReading) {
       $("home").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
-      requestAnimationFrame(() => moveSeg(false));
+      requestAnimationFrame(() => { moveSeg(false); markSolo(); });
+      // Se vuelve por el mismo camino: a la tarjeta de la entrada que se estaba leyendo
+      const card = (slug === "posts" || slug === "") && leftSlug && $("grid").querySelector(`a[href="#${leftSlug}"]`);
+      if (card) {
+        requestAnimationFrame(() => {
+          card.scrollIntoView({ block: "center", behavior: "instant" });
+          if (!reduced()) card.animate(
+            [{ transform: "scale(1.04)", opacity: .4 }, { transform: "none", opacity: 1 }],
+            { duration: 260, easing: EASE }
+          );
+        });
+        return;
+      }
     }
     const el = slug && document.getElementById(slug);
     if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: wasReading || reduced() ? "instant" : "smooth" }));
@@ -865,15 +1026,17 @@ $("seg-list").addEventListener("click", e => {
   currentFilter = b.dataset.key;
   $("seg-list").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
   moveSeg(true);
+  b.scrollIntoView({ inline: "nearest", block: "nearest", behavior: reduced() ? "instant" : "smooth" });
   renderGrid(true);
 });
+document.querySelector(".toolbar").addEventListener("scroll", updateFade, { passive: true });
 $("back").addEventListener("click", () => { location.hash = "posts"; });
 $("copy-email").addEventListener("click", async e => {
   try { await navigator.clipboard.writeText(SITE.email); e.target.textContent = "Copied"; setTimeout(() => e.target.textContent = "Copy", 1600); }
   catch { const r = document.createRange(); r.selectNodeContents($("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 });
 window.addEventListener("hashchange", route);
-window.addEventListener("resize", () => moveSeg(false));
+window.addEventListener("resize", () => { moveSeg(false); markSolo(); });
 document.fonts && document.fonts.ready.then(() => moveSeg(false));
 
 renderSite();
