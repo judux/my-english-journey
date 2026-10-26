@@ -467,7 +467,7 @@ const POSTS = [
   {
     slug: "interview-and-chronicle", guide: "Guide 2",
     title: "An Interview and an Iconic Person",
-    dek: "A virtual interview where I answer questions about myself, and a chronicle about an iconic person.",
+    dek: "A virtual interview where I answer questions about myself, and a chronicle about Bill Gates.",
     items: [
       {
         code: "GA2-240202501-AA1-EV02", kind: "video", status: "pending",
@@ -475,13 +475,25 @@ const POSTS = [
         dek: "I interview myself and answer the questions in English."
       },
       {
-        code: "GA2-240202501-AA1-EV03", kind: "text", status: "pending",
-        title: "Chronicle: An Iconic Person",
-        dek: "A text about the life of an iconic person."
+        code: "GA2-240202501-AA1-EV03", kind: "text", status: "ready",
+        title: "Bill Gates: A Pioneer in Software Development",
+        dek: "A chronicle about an iconic person in software development.",
+        pdf: "cronica.pdf",
+        body: `
+<p>Bill Gates is one of the most important people in the history of software development. He was born on October 28, 1955, in Seattle, Washington, United States. From a young age, he was interested in computers and technology.</p>
+<p>In 1975, Bill Gates and his friend Paul Allen created Microsoft. Their goal was to develop software for personal computers. One of their first successes was creating a version of the BASIC programming language for the Altair 8800 computer. This achievement helped them become recognized in the technology industry.</p>
+<p>During the 1980s, Microsoft developed the MS-DOS <em class="v">operating system</em>, which became very popular. Later, the company launched Microsoft Windows, a graphical operating system that changed the way people used computers. Thanks to Windows, personal computers became easier to use for millions of people around the world.</p>
+<p>Bill Gates worked hard to improve software products and expand Microsoft globally. His <em class="v">leadership</em> and vision helped the company become one of the largest technology companies in the world. Through his work, he contributed significantly to the growth of the software industry and modern computing.</p>
+<p>In recent years, Bill Gates has dedicated much of his time to <em class="v">philanthropy</em> through the Bill &amp; Melinda Gates Foundation. Although he is no longer involved in the daily management of Microsoft, his influence on technology remains very important.</p>
+<p>In conclusion, Bill Gates is an <em class="v">iconic</em> figure in software development. His innovations, leadership, and dedication have had a positive impact on technology and society worldwide.</p>`
       }
     ],
     vocab: [
       ["interview", "a meeting where someone answers questions"],
+      ["pioneer", "one of the first people to do something new"],
+      ["operating system", "the main software that controls a computer, like Windows"],
+      ["leadership", "the ability to guide a group or a company"],
+      ["philanthropy", "giving money and time to help other people"],
       ["iconic", "very famous and representative of something"]
     ]
   },
@@ -736,6 +748,7 @@ function itemHTML(p, it) {
       ${it.dek ? `<p class="ev-dek">${esc(it.dek)}</p>` : ""}
       ${mediaHTML(it, it.title)}
       ${it.body ? `<div class="body">${it.body}</div>` : ""}
+      ${it.pdf ? `<a class="out" href="${esc(it.pdf)}" target="_blank" rel="noopener">Open the original PDF ›</a>` : ""}
     </section>`;
 }
 
