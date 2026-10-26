@@ -524,9 +524,10 @@ const POSTS = [
     dek: "Two recordings: one about attitudes, beliefs and obligations, and a podcast about my path and my plans.",
     items: [
       {
-        code: "GA3-240202501-AA1-EV02", kind: "audio", status: "pending",
+        code: "GA3-240202501-AA1-EV02", kind: "audio", status: "ready",
         title: "Attitudes, Beliefs and Obligations",
-        dek: "A recording about what I believe and what I have to do."
+        dek: "A recording about what I believe and what I have to do.",
+        media: { type: "audio", src: "actitudes.m4a" }
       },
       {
         code: "GA3-240202501-AA2-EV02", kind: "audio", status: "pending",
@@ -729,7 +730,7 @@ function mediaHTML(it, title) {
     return `<div class="media"><div class="${frame}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0" title="${esc(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>`;
   }
   if (m.type === "video") return `<div class="media"><div class="${frame}"><video controls playsinline preload="metadata" src="${esc(m.src)}" title="${esc(title)}"></video></div></div>`;
-  if (m.type === "audio") return `<div class="media"><audio controls preload="none" src="${esc(m.src)}"></audio></div>`;
+  if (m.type === "audio") return `<div class="media"><audio controls preload="metadata" src="${esc(m.src)}"></audio></div>`;
   if (m.type === "image") return `<figure class="media"><a class="sheet" href="${esc(m.pdf || m.src)}" target="_blank" rel="noopener"><img src="${esc(m.src)}" alt="${esc(m.alt || title)}" width="${m.width || ""}" height="${m.height || ""}"></a>${m.pdf ? `<figcaption><a class="out" href="${esc(m.pdf)}" target="_blank" rel="noopener">Open the PDF ›</a></figcaption>` : ""}</figure>`;
   if (m.type === "link") return `<div class="media"><div class="slot"><b>${esc(m.label || "Open the file")}</b><a class="out" href="${esc(m.url)}" target="_blank" rel="noopener">Open ›</a></div></div>`;
   return "";
