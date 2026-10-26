@@ -234,6 +234,7 @@ article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
 .media { margin: 32px 0; }
 .media .frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 14px; overflow: hidden; background: #000; }
 .media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.media .frame.vertical { aspect-ratio: 9 / 16; width: min(100%, 360px); margin: 0 auto; }
 .media audio { width: 100%; }
 .slot { border-radius: 14px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line); padding: 34px 20px; text-align: center; color: var(--muted); font-size: .9375rem; }
 .slot b { display: block; color: var(--ink); font-size: 1.0625rem; margin-bottom: 2px; }
@@ -406,10 +407,10 @@ const SITE = {
    media: { type: "youtube", id: "VIDEO_ID" } | { type: "audio", src: "archivo.mp3" } | { type: "link", url: "https://...", label: "..." } */
 const POSTS = [
   {
-    slug: "my-family", title: "Meet My Family", kind: "video", skill: "Speaking", status: "pending",
-    dek: "A short video where I introduce the people I live with.",
-    media: null, body: "",
-    vocab: [["relatives", "the people in your family"], ["get along with", "to have a good relationship with someone"]]
+    slug: "introduce-myself", title: "Let Me Introduce Myself", kind: "video", skill: "Speaking", status: "ready",
+    dek: "My presentation video in English.",
+    media: { type: "youtube", id: "_fQShrU2DZ0", vertical: true }, body: "",
+    vocab: [["introduce yourself", "to tell people your name and some information about you"], ["be from", "to be born in or to live in a place"]]
   },
   {
     slug: "free-time", title: "What I Do in My Free Time", kind: "audio", skill: "Speaking", status: "pending",
@@ -575,7 +576,7 @@ function mediaHTML(p) {
   }
   if (m.type === "youtube") {
     const id = encodeURIComponent(m.id);
-    return `<div class="media"><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${esc(p.title)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div><a class="out" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Watch on YouTube ›</a></div>`;
+    return `<div class="media"><div class="frame${m.vertical ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0" title="${esc(p.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>`;
   }
   if (m.type === "audio") return `<div class="media"><audio controls preload="none" src="${esc(m.src)}"></audio></div>`;
   if (m.type === "link") return `<div class="media"><div class="slot"><b>${esc(m.label || "Open the file")}</b><a class="out" href="${esc(m.url)}" target="_blank" rel="noopener">Open ›</a></div></div>`;
