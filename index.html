@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="My English blog for SENA (English Level 6, B1.1+): videos, audios and texts about my family, hobbies, work, travel, the news, media literacy and crime and punishment.">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>My English Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: página blanca estilo Apple. Cada sección es una ventana de Mac; el hero es la única ventana oscura.
+   Barra de menú translúcida, fuente del sistema para la interfaz y serif para leer las entradas. */
+:root {
+  --page: #FFFFFF;
+  --win: #FFFFFF;
+  --win-bar: #F5F5F7;
+  --line: #E3E3E6;
+  --ink: #1D1D1F;
+  --muted: #6E6E73;
+  --accent: #0071E3;
+  --hero: #1D1D1F;
+  --hero-bar: #2A2A2D;
+  --hero-ink: #F5F5F7;
+  --hero-muted: #A1A1A6;
+  --hero-line: #3A3A3D;
+  --hi: #FFE169;
+  --hi-ink: #2B2300;
+  --ok: #1D7D45;
+  --ok-soft: #E4F4EA;
+  --draft: #B44D00;
+  --draft-soft: #FFF0E1;
+  --pending-soft: #F0F0F2;
+  --bubble-me: #0A84FF;
+  --bubble-them: #E9E9EB;
+  --glass: rgba(255, 255, 255, .72);
+  --shadow: 0 0 0 1px rgba(0, 0, 0, .06), 0 2px 6px rgba(0, 0, 0, .04), 0 24px 60px -24px rgba(0, 0, 0, .22);
+  --shadow-hero: 0 0 0 1px rgba(0, 0, 0, .2), 0 30px 70px -28px rgba(0, 0, 0, .55);
+
+  --ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --read: "Source Serif 4", "New York", Georgia, serif;
+  --mono: "SF Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #000000; --win: #1C1C1E; --win-bar: #242426; --line: #38383A; --ink: #F5F5F7; --muted: #98989D;
+    --accent: #2997FF; --hero: #2C2C2E; --hero-bar: #343437; --hero-line: #48484A;
+    --hi: #E9C84A; --hi-ink: #231C00; --ok: #30D158; --ok-soft: #10291A; --draft: #FF9F0A; --draft-soft: #33230A;
+    --pending-soft: #2C2C2E; --bubble-them: #2C2C2E; --glass: rgba(22, 22, 24, .72);
+    --shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 60px -24px rgba(0, 0, 0, .9);
+    --shadow-hero: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 70px -28px rgba(0, 0, 0, .9);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #000000; --win: #1C1C1E; --win-bar: #242426; --line: #38383A; --ink: #F5F5F7; --muted: #98989D;
+  --accent: #2997FF; --hero: #2C2C2E; --hero-bar: #343437; --hero-line: #48484A;
+  --hi: #E9C84A; --hi-ink: #231C00; --ok: #30D158; --ok-soft: #10291A; --draft: #FF9F0A; --draft-soft: #33230A;
+  --pending-soft: #2C2C2E; --bubble-them: #2C2C2E; --glass: rgba(22, 22, 24, .72);
+  --shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 60px -24px rgba(0, 0, 0, .9);
+  --shadow-hero: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 70px -28px rgba(0, 0, 0, .9);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--page); color: var(--ink);
+  font: 400 1rem/1.5 var(--ui);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--page);
+}
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 2px; border-radius: 8px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Barra de menú translúcida */
+.menubar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--line) 70%, transparent);
+}
+.menubar .wrap { display: flex; align-items: center; gap: 22px; padding-block: 10px; font-size: .8125rem; }
+.brand { font-weight: 700; text-decoration: none; letter-spacing: -.01em; }
+.menubar nav { display: flex; gap: 18px; }
+.menubar nav a { text-decoration: none; color: var(--muted); transition: color .15s ease; }
+.menubar .right { margin-left: auto; display: flex; gap: 14px; align-items: center; color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { .menubar nav a:hover { color: var(--ink); } }
+
+/* Ventanas */
+main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
+.win {
+  background: var(--win); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; min-width: 0;
+  animation: enter .36s var(--ease-out) both;
+}
+.win:nth-of-type(2) { animation-delay: .06s; }
+.win:nth-of-type(3) { animation-delay: .12s; }
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } }
+.bar {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px;
+  padding: 11px 14px; background: var(--win-bar); border-bottom: 1px solid var(--line);
+}
+.lights { display: flex; gap: 8px; }
+.lights i { width: 12px; height: 12px; border-radius: 50%; display: block; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.12); }
+.lights i:nth-child(1) { background: #FF5F57; }
+.lights i:nth-child(2) { background: #FEBC2E; }
+.lights i:nth-child(3) { background: #28C840; }
+.bar-title { font-size: .8125rem; font-weight: 600; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-meta { justify-self: end; font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 28px; scroll-margin-top: 60px; }
+.section-head h2 { font-size: clamp(2.25rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.02; }
+.section-head p { margin: 0 0 6px; color: var(--muted); font-size: .9375rem; }
+
+/* Hero: la ventana oscura */
+.win.hero { background: var(--hero); box-shadow: var(--shadow-hero); color: var(--hero-ink); }
+.hero .bar { background: var(--hero-bar); border-bottom-color: var(--hero-line); }
+.hero .bar-title { color: var(--hero-muted); }
+.hero-body { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; padding: 48px 44px 44px; align-items: center; }
+.eyebrow { font: 500 .75rem/1 var(--mono); letter-spacing: .04em; color: var(--hero-muted); }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.75rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.02; margin-top: 18px; }
+.hero h1 .mark { background: var(--hi); color: var(--hi-ink); padding: 0 .12em; border-radius: .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero .lead { color: var(--hero-muted); font-size: 1.125rem; line-height: 1.5; max-width: 44ch; margin: 20px 0 28px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn {
+  font: 600 .9375rem/1 var(--ui); text-decoration: none; cursor: pointer; border: 0;
+  display: inline-flex; align-items: center; gap: 6px; padding: 13px 20px; border-radius: 999px;
+  background: var(--hero-ink); color: var(--hero);
+  transition: transform .16s var(--ease-out), background-color .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn.ghost { background: rgba(255, 255, 255, .1); color: var(--hero-ink); }
+.btn:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .btn.ghost:hover { background: rgba(255, 255, 255, .16); } }
+.stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--hero-line); }
+.stats div { font-size: .8125rem; color: var(--hero-muted); }
+.stats b { display: block; font: 700 1.5rem/1.1 var(--display); color: var(--hero-ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+
+.note {
+  background: var(--hi); color: var(--hi-ink); padding: 22px 22px 20px; border-radius: 6px;
+  transform: rotate(2.5deg); box-shadow: 0 18px 30px -14px rgba(0, 0, 0, .6);
+  transition: transform .3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .note:hover { transform: rotate(0deg); } }
+.note small { font: 600 .6875rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.note .word { font: 700 2rem/1.05 var(--display); letter-spacing: -.03em; margin: 10px 0 4px; }
+.note .pos { font: .75rem/1 var(--mono); opacity: .7; }
+.note p { font: 1rem/1.45 var(--read); margin: 12px 0 0; }
+.note a { display: inline-block; margin-top: 14px; font-size: .8125rem; font-weight: 600; text-decoration: none; }
+
+/* Entradas */
+.toolbar { padding: 14px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.toolbar::-webkit-scrollbar { display: none; }
+.seg { position: relative; display: inline-flex; padding: 3px; border-radius: 999px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line); }
+.seg-list { display: flex; }
+.seg button {
+  font: 500 .875rem/1 var(--ui); color: var(--ink); background: none; border: 0; cursor: pointer;
+  padding: 9px 14px; border-radius: 999px; white-space: nowrap; display: flex; gap: 6px; align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.seg button span { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .8125rem; }
+/* Copia de la lista con estilo activo, recortada al botón elegido (clip-path) */
+.seg-active {
+  position: absolute; inset: 3px; display: flex; pointer-events: none;
+  background: var(--ink); border-radius: 999px;
+  clip-path: inset(0 100% 0 0 round 999px);
+  transition: clip-path .24s var(--ease-out);
+}
+.seg-active button, .seg-active button span { color: var(--page); }
+.seg-active button span { opacity: .65; }
+
+.grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.card {
+  text-decoration: none; color: inherit; background: var(--win); border-radius: 14px; padding: 16px;
+  box-shadow: 0 0 0 1px var(--line); display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; min-width: 0;
+  transition: transform .16s var(--ease-out), box-shadow .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .card:hover { box-shadow: 0 0 0 1px var(--line), 0 10px 26px -12px rgba(0, 0, 0, .25); } }
+.card .top { display: flex; justify-content: space-between; align-items: flex-start; }
+.card h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; }
+.card p { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.45; }
+.card .foot { display: flex; justify-content: space-between; gap: 8px; font-size: .75rem; color: var(--muted); }
+.doc {
+  width: 34px; height: 42px; border-radius: 4px 11px 4px 4px; display: grid; place-items: end center; padding-bottom: 6px;
+  font: 700 .5625rem/1 var(--mono); color: #fff; letter-spacing: .04em;
+  background-image: linear-gradient(225deg, rgba(255, 255, 255, .35) 0 9px, transparent 9px);
+}
+.doc.text { background-color: #3478F6; }
+.doc.video { background-color: #FF3B30; }
+.doc.audio { background-color: #AF52DE; }
+.doc.slides { background-color: #FF9500; }
+.pill { font-size: .6875rem; font-weight: 600; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ready { background: var(--ok-soft); color: var(--ok); }
+.pill.draft { background: var(--draft-soft); color: var(--draft); }
+.pill.pending { background: var(--pending-soft); color: var(--muted); }
+
+/* Lector */
+.back {
+  justify-self: start; font: 500 .875rem/1 var(--ui); color: var(--accent); background: none; border: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 2px; padding: 4px 2px; transition: opacity .15s ease;
+}
+.back:active { opacity: .5; }
+article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
+.callout { background: var(--draft-soft); color: var(--draft); border-radius: 12px; padding: 12px 16px; font-size: .9375rem; margin-bottom: 28px; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tag { font-size: .75rem; font-weight: 600; color: var(--muted); }
+.tag + .tag::before { content: "·"; margin-right: 8px; }
+.post h1 { font-size: clamp(2rem, 5.5vw, 3.25rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.06; }
+.post .dek { font: italic 1.25rem/1.45 var(--read); color: var(--muted); margin: 16px 0 0; }
+.post .body { font: 1.1875rem/1.65 var(--read); margin-top: 32px; }
+.post .body p { margin: 0 0 1.15em; }
+.post .body h2 { font-size: 1.375rem; font-weight: 700; letter-spacing: -.02em; margin: 1.8em 0 .5em; }
+.post .body em.v { font-style: normal; background: linear-gradient(transparent 58%, color-mix(in srgb, var(--hi) 85%, transparent) 58%); padding: 0 2px; }
+.media { margin: 32px 0; }
+.media .frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 14px; overflow: hidden; background: #000; }
+.media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.media audio { width: 100%; }
+.slot { border-radius: 14px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line); padding: 34px 20px; text-align: center; color: var(--muted); font-size: .9375rem; }
+.slot b { display: block; color: var(--ink); font-size: 1.0625rem; margin-bottom: 2px; }
+.out { display: inline-block; margin-top: 10px; color: var(--accent); text-decoration: none; font-size: .9375rem; font-weight: 500; }
+.vocab { margin-top: 36px; border-radius: 14px; background: var(--win-bar); padding: 20px 22px; }
+.vocab h2 { font-size: .8125rem !important; font-weight: 600; color: var(--muted); margin: 0 0 12px !important; letter-spacing: 0 !important; }
+.vocab dl { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 0; font-size: .9375rem; }
+.vocab dt { font-weight: 650; }
+.vocab dd { margin: 0; color: var(--muted); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 680px; margin: 0 auto; padding: 8px 24px 36px; }
+.pager a {
+  text-decoration: none; border-radius: 14px; padding: 14px 16px; box-shadow: 0 0 0 1px var(--line); min-width: 0;
+  transition: transform .16s var(--ease-out);
+}
+.pager a:active { transform: scale(.98); }
+.pager small { display: block; font-size: .75rem; color: var(--accent); font-weight: 500; margin-bottom: 2px; }
+.pager span { font-weight: 600; letter-spacing: -.01em; }
+.pager .next { text-align: right; grid-column: 2; }
+
+/* Sobre mí: Mensajes */
+.chat { padding: 24px 20px 12px; display: grid; gap: 6px; max-width: 620px; margin: 0 auto; }
+.day { text-align: center; font-size: .6875rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+.bubble { max-width: 78%; padding: 9px 14px; border-radius: 20px; font-size: 1rem; line-height: 1.4; }
+.bubble.them { background: var(--bubble-them); justify-self: start; }
+.bubble.me { background: var(--bubble-me); color: #fff; justify-self: end; }
+.bubble.them + .bubble.me, .bubble.me + .bubble.them { margin-top: 8px; }
+.contact { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; padding: 14px 20px 28px; font-size: .875rem; color: var(--muted); }
+.contact code { font: .875rem var(--mono); color: var(--ink); background: var(--win-bar); padding: 7px 11px; border-radius: 10px; user-select: all; }
+.copy {
+  font: 600 .875rem/1 var(--ui); color: var(--accent); background: none; border: 0; cursor: pointer; padding: 8px 6px;
+  transition: opacity .15s ease;
+}
+.copy:active { opacity: .5; }
+
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 0 44px; color: var(--muted); font-size: .75rem; }
+
+@media (max-width: 760px) {
+  .menubar nav { display: none; }
+  .hero-body { grid-template-columns: 1fr; padding: 32px 22px 28px; gap: 32px; }
+  .note { transform: rotate(1.5deg); }
+  .grid { padding: 14px; }
+  article.post { padding: 32px 18px 18px; }
+  .pager { grid-template-columns: 1fr; padding: 8px 18px 28px; }
+  .pager .next { grid-column: 1; }
+  .vocab dl { grid-template-columns: 1fr; gap: 0; }
+  .vocab dd { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .win { animation: fade .2s ease both; }
+  .btn:active, .card:active, .pager a:active { transform: none; }
+  .note, .note:hover { transform: none; transition: none; }
+  .seg-active { transition: clip-path .01s; }
+}
+@keyframes fade { from { opacity: 0; } }
+@media (prefers-reduced-transparency: reduce) {
+  .menubar { background: var(--page); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="menubar">
+  <div class="wrap">
+    <a class="brand" href="#top">My English Journey</a>
+    <nav aria-label="Main">
+      <a href="#posts">Posts</a>
+      <a href="#about-me">About me</a>
+    </nav>
+    <div class="right"><span>CEFR B1.1+</span><span id="today"></span></div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <!-- Inicio -->
+  <div id="home" style="display:grid;gap:28px">
+    <section class="win hero" aria-labelledby="hero-title">
+      <div class="bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">hello.txt</div><div></div></div>
+      <div class="hero-body">
+        <div>
+          <div class="eyebrow" id="program-line"></div>
+          <h1 id="hero-title">Learning English, <span class="mark">one post</span> at a time.</h1>
+          <p class="lead" id="lead"></p>
+          <div class="actions">
+            <a class="btn" href="#posts">Read the posts</a>
+            <a class="btn ghost" href="#about-me">About me</a>
+          </div>
+          <div class="stats" aria-label="Blog progress">
+            <div><b id="count-total">0</b>posts</div>
+            <div><b id="count-ready">0</b>published</div>
+            <div><b id="count-words">0</b>new words</div>
+          </div>
+        </div>
+        <aside class="note" aria-label="Word of the day">
+          <small>Word of the day</small>
+          <div class="word" id="wotd-word"></div>
+          <div class="pos" id="wotd-pos"></div>
+          <p id="wotd-def"></p>
+          <a id="wotd-from" href="#"></a>
+        </aside>
+      </div>
+    </section>
+
+    <div class="section-head" id="posts">
+      <h2>The posts.</h2>
+      <p>Open them like files on my Mac.</p>
+    </div>
+    <section class="win" aria-label="Posts">
+      <div class="bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">Posts</div><div class="bar-meta" id="items-meta"></div></div>
+      <div class="toolbar">
+        <div class="seg" id="seg">
+          <div class="seg-list" id="seg-list" role="group" aria-label="Filter posts"></div>
+          <div class="seg-active" id="seg-active" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <div class="section-head" id="about-me">
+      <h2>About me.</h2>
+      <p>Say hi in English.</p>
+    </div>
+    <section class="win" aria-label="About me">
+      <div class="bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title" id="chat-title">Messages</div><div></div></div>
+      <div class="chat" id="chat"></div>
+      <div class="contact">
+        <span>Write to me</span>
+        <code id="email"></code>
+        <button class="copy" id="copy-email" type="button">Copy</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Una entrada -->
+  <section class="win" id="reader" hidden>
+    <div class="bar">
+      <button class="back" id="back" type="button">‹ All posts</button>
+      <div class="bar-title" id="reader-file"></div>
+      <div class="bar-meta" id="reader-pos"></div>
+    </div>
+    <article class="post" id="post" aria-live="polite"></article>
+    <nav class="pager" id="pager" aria-label="More posts"></nav>
+  </section>
+</main>
+
+<footer><div class="wrap"><span id="foot-name"></span><span id="foot-program"></span></div></footer>
+
+<script>
+/* ====== Tus datos: cambia esto ====== */
+const SITE = {
+  name: "Your Name",
+  program: "SENA · English Level 6 · B1.1+",
+  ficha: "Ficha 0000000",
+  email: "your.email@example.com",
+  intro: "This is my English blog. Here I collect the videos, audios and texts I made during my training at SENA, from my family and hobbies to crime and the news.",
+  about: [
+    ["them", "Hi! Who are you?"],
+    ["me", "Hi! My name is Your Name. I'm a SENA apprentice and I'm learning English."],
+    ["them", "What do you write about here?"],
+    ["me", "My family, my hobbies, my job, a trip I remember and the news."],
+    ["me", "There are also two new posts about media literacy and about crime and punishment."],
+    ["them", "Why a blog?"],
+    ["me", "Because I can see how much I have improved. Every post is a little better than the one before."]
+  ]
+};
+
+/* ====== Las entradas ======
+   status: "ready" (publicada), "draft" (borrador para revisar), "pending" (falta subir el trabajo)
+   kind: "text" | "video" | "audio" | "slides"
+   media: { type: "youtube", id: "VIDEO_ID" } | { type: "audio", src: "archivo.mp3" } | { type: "link", url: "https://...", label: "..." } */
+const POSTS = [
+  {
+    slug: "my-family", title: "Meet My Family", kind: "video", skill: "Speaking", status: "pending",
+    dek: "A short video where I introduce the people I live with.",
+    media: null, body: "",
+    vocab: [["relatives", "the people in your family"], ["get along with", "to have a good relationship with someone"]]
+  },
+  {
+    slug: "free-time", title: "What I Do in My Free Time", kind: "audio", skill: "Speaking", status: "pending",
+    dek: "An audio about my hobbies and how often I do them.",
+    media: null, body: "",
+    vocab: [["hobby", "an activity you do for fun in your free time"], ["once in a while", "sometimes, not often"]]
+  },
+  {
+    slug: "my-job", title: "A Day at Work", kind: "slides", skill: "Writing", status: "pending",
+    dek: "A brochure about my job and my daily routine.",
+    media: null, body: "",
+    vocab: [["shift", "the hours of the day when you work"], ["duties", "the things you must do in your job"]]
+  },
+  {
+    slug: "a-trip", title: "A Trip I Will Never Forget", kind: "text", skill: "Writing", status: "pending",
+    dek: "A chronicle about a trip and what happened on it.",
+    media: null, body: "",
+    vocab: [["journey", "a long trip from one place to another"], ["unforgettable", "so special that you always remember it"]]
+  },
+  {
+    slug: "in-the-news", title: "This Week in the News", kind: "slides", skill: "Reading", status: "pending",
+    dek: "A presentation about a current event and my opinion.",
+    media: null, body: "",
+    vocab: [["current events", "important things happening in the world now"], ["headline", "the title of a news story"]]
+  },
+  {
+    slug: "media-literacy", title: "Can You Trust Everything You See Online?", kind: "text", skill: "Critical thinking", status: "draft",
+    dek: "Some simple questions I ask myself before I believe or share a piece of news.",
+    media: null,
+    body: `
+<p>Every day I see a lot of information on my phone: videos on TikTok, messages in WhatsApp groups and posts on Facebook. Some of it is true, some of it is half true and some of it is completely false. The problem is that false news usually looks very real, and it travels faster than the truth.</p>
+<p>Last month my aunt sent a message to our family group. It said that a famous supermarket was giving free food to everyone who shared the message ten times. A lot of people shared it, but it was a scam. When I looked for the supermarket's official page, there was nothing about it. That is when I understood that <em class="v">critical thinking</em> is not only for school. It is a skill we need every day.</p>
+<h2>My four questions</h2>
+<p>Now, before I believe or share something, I ask myself four questions. First, who wrote it? If I can't find the <em class="v">source</em>, I don't trust it. Second, is the <em class="v">headline</em> trying to make me angry or scared? Strong emotions are often a sign of <em class="v">misleading</em> content. Third, do other reliable media say the same thing? If only one page has the story, I wait. Fourth, is the information recent? Many people share old photos as if they were new.</p>
+<p>I also try to remember that every media outlet has some <em class="v">bias</em>. That doesn't mean everything they say is a lie. It means I should read more than one point of view before I form an opinion.</p>
+<h2>What I learned</h2>
+<p>Being media literate doesn't mean we have to stop using social networks. It means we have to use them more carefully. If we <em class="v">fact-check</em> before we share, we protect our families and our friends. In my opinion, the most important question is not "Is this interesting?" but "Is this true?"</p>`,
+    vocab: [
+      ["critical thinking", "analyzing information carefully before you accept it"],
+      ["source", "the person or place where information comes from"],
+      ["headline", "the title of a news story"],
+      ["misleading", "giving a wrong idea, even if part of it is true"],
+      ["bias", "a tendency to support one side or opinion"],
+      ["fact-check", "to verify if information is correct"]
+    ]
+  },
+  {
+    slug: "crime-and-punishment", title: "Crime and Punishment: Is Prison the Only Answer?", kind: "text", skill: "Opinion", status: "draft",
+    dek: "My opinion about how society should respond when someone breaks the law.",
+    media: null,
+    body: `
+<p>When people hear about a crime on the news, the first reaction is usually the same: "Put them in jail." I understand this feeling. Crime hurts families, and victims deserve justice. However, I believe prison should not be the only answer for every <em class="v">offender</em>.</p>
+<h2>Different crimes, different punishments</h2>
+<p>Not all crimes are equal. A person who <em class="v">commits a crime</em> like murder or kidnapping is a danger to society, and a long <em class="v">sentence</em> in prison is necessary. But what about a teenager who steals a phone for the first time? In that case, I think a <em class="v">fine</em> or <em class="v">community service</em> could be more useful. For example, the young person could help clean parks or work in a food bank. This way, they repair part of the damage and they learn about responsibility.</p>
+<h2>The goal should be to change</h2>
+<p>In many countries, including mine, prisons are overcrowded. When someone young goes to prison for a small crime, they often meet dangerous criminals there, and when they get out, they are worse than before. That is why I support <em class="v">rehabilitation</em>: education, therapy and job training for prisoners. If a person learns a trade, it is less likely that they will commit another crime.</p>
+<p>Some people say that hard punishments are a good <em class="v">deterrent</em>, because people are afraid of going to jail. That may be true in some cases, but many crimes happen because of poverty, drugs or lack of opportunities. Punishment alone doesn't solve those problems.</p>
+<h2>My conclusion</h2>
+<p>In my opinion, a fair justice system protects society from dangerous people, but it also gives a second chance to people who made a mistake. The <em class="v">judge</em> should consider the crime, the age of the offender and the possibility of change. Justice is not only about punishment; it is also about preventing the next crime.</p>`,
+    vocab: [
+      ["offender", "a person who has broken the law"],
+      ["commit a crime", "to do something illegal"],
+      ["sentence", "the punishment a judge gives"],
+      ["fine", "money you must pay as a punishment"],
+      ["community service", "unpaid work that helps the community, given as a punishment"],
+      ["rehabilitation", "helping someone return to a normal, legal life"],
+      ["deterrent", "something that makes people afraid to do something"],
+      ["judge", "the person who decides the punishment in a court"]
+    ]
+  }
+];
+
+/* ====== Lógica ====== */
+const KIND = { text: "TXT", video: "MP4", audio: "MP3", slides: "PDF" };
+const STATUS = { ready: "Published", draft: "Draft", pending: "Coming soon" };
+const FILTERS = [
+  ["all", "All", () => true],
+  ["text", "Writing", p => p.kind === "text" || p.kind === "slides"],
+  ["video", "Videos", p => p.kind === "video"],
+  ["audio", "Audios", p => p.kind === "audio"],
+  ["new", "New topics", p => p.slug === "media-literacy" || p.slug === "crime-and-punishment"]
+];
+const EASE = "cubic-bezier(.23, 1, .32, 1)";
+const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+let currentFilter = "all";
+let lastCard = null; // de dónde se abrió la entrada, para que la ventana nazca ahí
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function readingTime(html) {
+  const words = html.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length;
+  return words ? Math.max(1, Math.round(words / 180)) + " min read" : "";
+}
+
+function renderSite() {
+  $("lead").textContent = SITE.intro;
+  $("program-line").textContent = SITE.program;
+  $("email").textContent = SITE.email;
+  $("chat-title").textContent = SITE.name;
+  $("foot-name").textContent = "© " + new Date().getFullYear() + " " + SITE.name;
+  $("foot-program").textContent = SITE.program + " · " + SITE.ficha;
+  $("today").textContent = new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  $("chat").innerHTML = '<div class="day">Today</div>' +
+    SITE.about.map(([who, text]) => `<div class="bubble ${who}">${esc(text)}</div>`).join("");
+
+  $("count-total").textContent = POSTS.length;
+  $("count-ready").textContent = POSTS.filter(p => p.status === "ready").length;
+  $("count-words").textContent = POSTS.reduce((n, p) => n + p.vocab.length, 0);
+
+  // Palabra del día: cambia cada día y es la misma para todos ese día
+  const all = POSTS.flatMap(p => p.vocab.map(v => ({ word: v[0], def: v[1], post: p })));
+  const w = all[Math.floor(Date.now() / 86400000) % all.length];
+  $("wotd-word").textContent = w.word;
+  $("wotd-pos").textContent = w.word.includes(" ") ? "expression" : "word";
+  $("wotd-def").textContent = w.def[0].toUpperCase() + w.def.slice(1) + ".";
+  $("wotd-from").textContent = "From “" + w.post.title + "” ›";
+  $("wotd-from").href = "#" + w.post.slug;
+}
+
+function renderSeg() {
+  const html = FILTERS.map(([key, label, fn]) =>
+    `<button type="button" data-key="${key}" aria-pressed="${key === currentFilter}">${label}<span>${POSTS.filter(fn).length}</span></button>`
+  ).join("");
+  $("seg-list").innerHTML = html;
+  $("seg-active").innerHTML = html.replace(/aria-pressed="[^"]*"/g, 'tabindex="-1"');
+}
+
+function moveSeg(animate) {
+  const btn = $("seg-list").querySelector(`[data-key="${currentFilter}"]`);
+  const box = $("seg-active");
+  const left = btn.offsetLeft - 3;
+  const right = box.offsetWidth - left - btn.offsetWidth;
+  if (!animate) box.style.transition = "none";
+  box.style.clipPath = `inset(0 ${right}px 0 ${left}px round 999px)`;
+  if (!animate) { box.offsetWidth; box.style.transition = ""; }
+}
+
+function renderGrid(animate) {
+  const fn = FILTERS.find(f => f[0] === currentFilter)[2];
+  const list = POSTS.filter(fn);
+  $("items-meta").textContent = list.length + (list.length === 1 ? " item" : " items");
+  $("grid").innerHTML = list.map(p => `
+    <a class="card" href="#${p.slug}">
+      <div class="top"><span class="doc ${p.kind}" aria-hidden="true">${KIND[p.kind]}</span><span class="pill ${p.status}">${STATUS[p.status]}</span></div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.dek)}</p>
+      <div class="foot"><span>${esc(p.skill)}</span><span>${readingTime(p.body)}</span></div>
+    </a>`).join("");
+  if (animate && !reduced()) {
+    [...$("grid").children].forEach((el, i) => el.animate(
+      [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
+      { duration: 240, delay: i * 30, easing: EASE, fill: "backwards" }
+    ));
+  }
+}
+
+function mediaHTML(p) {
+  const m = p.media;
+  if (!m) {
+    if (p.kind === "text") return "";
+    const what = { video: "The video", audio: "The audio", slides: "The document" }[p.kind];
+    return `<div class="media"><div class="slot"><b>${what} goes here</b>Coming soon.</div></div>`;
+  }
+  if (m.type === "youtube") {
+    const id = encodeURIComponent(m.id);
+    return `<div class="media"><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${esc(p.title)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div><a class="out" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Watch on YouTube ›</a></div>`;
+  }
+  if (m.type === "audio") return `<div class="media"><audio controls preload="none" src="${esc(m.src)}"></audio></div>`;
+  if (m.type === "link") return `<div class="media"><div class="slot"><b>${esc(m.label || "Open the file")}</b><a class="out" href="${esc(m.url)}" target="_blank" rel="noopener">Open ›</a></div></div>`;
+  return "";
+}
+
+function renderPost(p) {
+  const i = POSTS.indexOf(p);
+  $("reader-file").textContent = p.slug + "." + KIND[p.kind].toLowerCase();
+  $("reader-pos").textContent = (i + 1) + " of " + POSTS.length;
+  const note = p.status === "draft"
+    ? '<div class="callout">Draft. Read it again and make it sound like you before you publish it.</div>'
+    : p.status === "pending" ? '<div class="callout">This post is waiting for the work I made in class.</div>' : "";
+  const rt = readingTime(p.body);
+  $("post").innerHTML = `
+    ${note}
+    <div class="tags"><span class="tag">${esc(p.skill)}</span><span class="tag">${KIND[p.kind]}</span>${rt ? `<span class="tag">${rt}</span>` : ""}</div>
+    <h1>${esc(p.title)}</h1>
+    <p class="dek">${esc(p.dek)}</p>
+    ${mediaHTML(p)}
+    <div class="body">${p.body}</div>
+    ${p.vocab.length ? `<section class="vocab"><h2>Key vocabulary</h2><dl>${p.vocab.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join("")}</dl></section>` : ""}`;
+  const prev = POSTS[i - 1], next = POSTS[i + 1];
+  $("pager").innerHTML =
+    (prev ? `<a href="#${prev.slug}"><small>‹ Previous</small><span>${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.slug}"><small>Next ›</small><span>${esc(next.title)}</span></a>` : "");
+}
+
+function route() {
+  const slug = location.hash.slice(1);
+  const p = POSTS.find(x => x.slug === slug);
+  const wasReading = !$("reader").hidden;
+  $("home").hidden = !!p;
+  $("reader").hidden = !p;
+
+  if (p) {
+    renderPost(p);
+    window.scrollTo({ top: 0, behavior: "instant" });
+    if (reduced()) {
+      $("reader").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: "ease" });
+    } else if (wasReading) {
+      // Entre entradas: fundido con un poco de desenfoque para que se lea como un solo cambio
+      $("post").animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)" }], { duration: 220, easing: EASE });
+    } else {
+      // Desde una tarjeta: la ventana nace desde donde se tocó
+      const r = $("reader").getBoundingClientRect();
+      if (lastCard) $("reader").style.transformOrigin = `${lastCard.x - r.left}px ${lastCard.y - (r.top + scrollY)}px`;
+      $("reader").animate([{ opacity: 0, transform: "scale(.94)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: EASE });
+    }
+    lastCard = null;
+  } else {
+    if (wasReading) {
+      $("home").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
+      requestAnimationFrame(() => moveSeg(false));
+    }
+    const el = slug && document.getElementById(slug);
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: wasReading || reduced() ? "instant" : "smooth" }));
+  }
+}
+
+$("grid").addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  lastCard = { x: r.left + r.width / 2, y: r.top + scrollY + r.height / 2 };
+});
+$("seg-list").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b || b.dataset.key === currentFilter) return;
+  currentFilter = b.dataset.key;
+  $("seg-list").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  moveSeg(true);
+  renderGrid(true);
+});
+$("back").addEventListener("click", () => { location.hash = "posts"; });
+$("copy-email").addEventListener("click", async e => {
+  try { await navigator.clipboard.writeText(SITE.email); e.target.textContent = "Copied"; setTimeout(() => e.target.textContent = "Copy", 1600); }
+  catch { const r = document.createRange(); r.selectNodeContents($("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+});
+window.addEventListener("hashchange", route);
+window.addEventListener("resize", () => moveSeg(false));
+document.fonts && document.fonts.ready.then(() => moveSeg(false));
+
+renderSite();
+renderSeg();
+renderGrid(false);
+route();
+moveSeg(false);
+</script>
+</body>
+</html>
