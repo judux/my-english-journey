@@ -545,17 +545,39 @@ const POSTS = [
   {
     slug: "my-ple", guide: "Guide 4",
     title: "My Personal Learning Environment",
-    dek: "A mind map about the people, tools and places I use to learn.",
+    dek: "A mind map about the sources, tools, strategies and people I use to learn English for software development.",
     items: [
       {
-        code: "GA4-240202501-AA1-EV02", kind: "image", status: "pending",
+        code: "GA4-240202501-AA1-EV02", kind: "image", status: "ready",
         title: "Mind Map: My PLE",
-        dek: "A mind map in English about my personal learning environment."
+        dek: "Learning English for software development.",
+        media: {
+          type: "image", src: "ple.png", pdf: "ple.pdf", width: 1440, height: 809,
+          alt: "Mind map: My Personal Learning Environment (PLE), learning English for software development. Six branches: information sources, digital learning tools, learning strategies, personal learning network, professional application and my career interests."
+        },
+        body: `
+<p>My <em class="v">personal learning environment</em> is everything I use to learn English for software development. I organized it in six branches:</p>
+<h2>1. Information sources</h2>
+<p>Official <em class="v">documentation</em>, MDN Web Docs, Firebase documentation, and API references and guides.</p>
+<h2>2. Digital learning tools</h2>
+<p>Duolingo, Google Translate, VS Code and AI tools.</p>
+<h2>3. Learning strategies</h2>
+<p>I read technical documentation, watch YouTube tutorials, listen to English videos and podcasts, and practice with small projects.</p>
+<h2>4. Personal learning network</h2>
+<p>GitHub repositories, online project discussions, learning from other developers, and asking questions and sharing solutions.</p>
+<h2>5. Professional application</h2>
+<p>I use English to read technical specifications, write code comments, create Git commits and GitHub updates, communicate with international teams and prepare for <em class="v">technical interviews</em>.</p>
+<h2>6. My career interests</h2>
+<p>Web development, artificial intelligence, building applications, UI/UX design, databases and Firebase, and software testing.</p>`
+
       }
     ],
     vocab: [
-      ["learning environment", "the tools, people and places you use to learn"],
-      ["mind map", "a diagram that organizes ideas around a central topic"]
+      ["personal learning environment", "the tools, people and places you use to learn"],
+      ["mind map", "a diagram that organizes ideas around a central topic"],
+      ["documentation", "the official guides that explain how a tool or a language works"],
+      ["learning network", "the people and communities you learn from"],
+      ["technical interview", "a job interview where you answer questions or solve problems about programming"]
     ]
   },
   {
