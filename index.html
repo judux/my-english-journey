@@ -209,6 +209,10 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .doc.video { background-color: #FF3B30; }
 .doc.audio { background-color: #AF52DE; }
 .doc.slides { background-color: #FF9500; }
+.doc.image { background-color: #34C759; }
+.docs { display: flex; gap: 6px; }
+.card .docs .doc { width: 28px; height: 34px; border-radius: 3px 9px 3px 3px; padding-bottom: 5px; font-size: .5rem; background-image: linear-gradient(225deg, rgba(255, 255, 255, .35) 0 7px, transparent 7px); }
+.pill.partial { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
 .pill { font-size: .6875rem; font-weight: 600; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
 .pill.ready { background: var(--ok-soft); color: var(--ok); }
 .pill.draft { background: var(--draft-soft); color: var(--draft); }
@@ -236,6 +240,14 @@ article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
 .media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .media .frame.vertical { aspect-ratio: 9 / 16; width: min(100%, 360px); margin: 0 auto; }
 .media audio { width: 100%; }
+.media video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; }
+.evidence { margin-top: 44px; padding-top: 30px; border-top: 1px solid var(--line); }
+.ev-head { display: flex; align-items: center; gap: 14px; }
+.ev-head > div { flex: 1; min-width: 0; }
+.ev-head .doc { flex: none; }
+.ev-code { font: 500 .75rem/1.3 var(--mono); color: var(--muted); }
+.evidence h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin-top: 2px; }
+.ev-dek { color: var(--muted); margin: 12px 0 0; }
 figure.media { margin: 32px 0; }
 .media .sheet {
   display: block; border-radius: 12px; overflow: hidden;
@@ -333,7 +345,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           </div>
           <div class="stats" aria-label="Blog progress">
             <div><b id="count-total">0</b>posts</div>
-            <div><b id="count-ready">0</b>published</div>
+            <div><b id="count-ready">0</b>evidences ready</div>
             <div><b id="count-words">0</b>new words</div>
           </div>
         </div>
@@ -392,54 +404,59 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 <footer><div class="wrap"><span id="foot-name"></span><span id="foot-program"></span></div></footer>
 
 <script>
-/* ====== Tus datos: cambia esto ====== */
+/* ====== Tus datos ====== */
 const SITE = {
   name: "Johan Sanchez",
   program: "SENA · English Level 6 · B1.1+",
   ficha: "Ficha 3388994",
   email: "johandavidromoro@gmail.com",
-  intro: "This is my English blog. Here I collect the videos, audios and texts I made during my training at SENA, from my family and hobbies to crime and the news.",
+  intro: "This is my English blog. Here I collect the videos, audios and texts I made during my training at SENA, from a friend's presentation and my training program to my plans for the future.",
   about: [
     ["them", "Hi! Who are you?"],
-    ["me", "Hi! My name is Johan Sanchez. I'm a SENA apprentice and I'm learning English."],
+    ["me", "Hi! My name is Johan Sanchez. I'm a SENA apprentice in Software Analysis and Development, and I'm learning English."],
     ["them", "What do you write about here?"],
-    ["me", "My family, my hobbies, my job, a trip I remember and the news."],
+    ["me", "A friend, my training program, an interview, an iconic person, my region, a job application, my beliefs and plans, and how I learn."],
     ["me", "There are also two new posts about media literacy and about crime and punishment."],
     ["them", "Why a blog?"],
     ["me", "Because I can see how much I have improved. Every post is a little better than the one before."]
   ]
 };
 
-/* ====== Las entradas ======
-   status: "ready" (publicada), "draft" (borrador para revisar), "pending" (falta subir el trabajo)
-   kind: "text" | "video" | "audio" | "slides"
-   media: { type: "youtube", id: "VIDEO_ID" } | { type: "audio", src: "archivo.mp3" } | { type: "link", url: "https://...", label: "..." } */
+/* ====== Las entradas: una por guía, con sus evidencias ======
+   Cada evidencia (items) tiene:
+     code: código de la evidencia · kind: "text" | "video" | "audio" | "slides" | "image"
+     status: "ready" (publicada) | "draft" (borrador para revisar) | "pending" (falta subirla)
+     media: { type: "youtube", id, vertical } | { type: "video", src, vertical } | { type: "audio", src }
+            | { type: "image", src, pdf, width, height, alt } | { type: "link", url, label }
+     body: texto en HTML (opcional) */
 const POSTS = [
   {
-    slug: "meet-my-friend", title: "Meet My Friend", kind: "video", skill: "Speaking", status: "ready",
-    dek: "A friend's presentation video in English, as the activity asked.",
-    media: { type: "youtube", id: "_fQShrU2DZ0", vertical: true }, body: "",
-    vocab: [["introduce yourself", "to tell people your name and some information about you"], ["be from", "to be born in or to live in a place"]]
-  },
-  {
-    slug: "free-time", title: "What I Do in My Free Time", kind: "audio", skill: "Speaking", status: "pending",
-    dek: "An audio about my hobbies and how often I do them.",
-    media: null, body: "",
-    vocab: [["hobby", "an activity you do for fun in your free time"], ["once in a while", "sometimes, not often"]]
-  },
-  {
-    slug: "my-program", title: "My Training Program: Software Analysis and Development", kind: "slides", skill: "Writing", status: "ready",
-    evidence: "GA1-240202501-AA1-EV03",
-    dek: "A brochure in English about ADSO, the program I study at SENA.",
-    media: {
-      type: "image", src: "folleto.png", pdf: "folleto.pdf", width: 1684, height: 1191,
-      alt: "Brochure about the Software Analysis and Development program (ADSO) at SENA, by Johan David Sanchez Romo. It has three parts: the cover, About the program, and My motivations and interests."
-    },
-    body: `
+    slug: "introductions", guide: "Guide 1",
+    title: "A Friend and My Training Program",
+    dek: "A friend's presentation video and a brochure about ADSO, the program I study at SENA.",
+    items: [
+      {
+        code: "GA1-240202501-AA1-EV02", kind: "video", status: "ready",
+        title: "Meet My Friend",
+        dek: "A friend's presentation video in English, as the activity asked.",
+        media: { type: "youtube", id: "_fQShrU2DZ0", vertical: true }
+      },
+      {
+        code: "GA1-240202501-AA1-EV03", kind: "slides", status: "ready",
+        title: "My Training Program: Software Analysis and Development",
+        dek: "A brochure in English about ADSO.",
+        media: {
+          type: "image", src: "folleto.png", pdf: "folleto.pdf", width: 1684, height: 1191,
+          alt: "Brochure about the Software Analysis and Development program (ADSO) at SENA, by Johan David Sanchez Romo. It has three parts: the cover, About the program, and My motivations and interests."
+        },
+        body: `
 <p>For this activity I designed a brochure about my training program, Software Analysis and Development (ADSO), at SENA. Its slogan is "Building smart solutions, coding the future."</p>
 <p>The brochure has three parts. The cover has my name, my registration number and the date. The second part explains what we learn in the program: how to analyze user <em class="v">requirements</em>, write <em class="v">clean code</em> and test applications, together with <em class="v">database management</em> and <em class="v">agile methodologies</em>. The last part is about my motivations: I like technology, <em class="v">problem-solving</em> and web development, and my goal is to become a skilled software engineer.</p>
-<p>Tap the brochure to open the PDF in full size.</p>`,
+<p>Tap the brochure to open the PDF in full size.</p>`
+      }
+    ],
     vocab: [
+      ["introduce yourself", "to tell people your name and some information about you"],
       ["requirements", "what users need a system to do"],
       ["clean code", "code that is easy to read and to change"],
       ["database management", "organizing and controlling the information a system stores"],
@@ -448,29 +465,100 @@ const POSTS = [
     ]
   },
   {
-    slug: "a-trip", title: "A Trip I Will Never Forget", kind: "text", skill: "Writing", status: "pending",
-    dek: "A chronicle about a trip and what happened on it.",
-    media: null, body: "",
-    vocab: [["journey", "a long trip from one place to another"], ["unforgettable", "so special that you always remember it"]]
+    slug: "interview-and-chronicle", guide: "Guide 2",
+    title: "An Interview and an Iconic Person",
+    dek: "A virtual interview where I answer questions about myself, and a chronicle about an iconic person.",
+    items: [
+      {
+        code: "GA2-240202501-AA1-EV02", kind: "video", status: "pending",
+        title: "My Virtual Interview",
+        dek: "I interview myself and answer the questions in English."
+      },
+      {
+        code: "GA2-240202501-AA1-EV03", kind: "text", status: "pending",
+        title: "Chronicle: An Iconic Person",
+        dek: "A text about the life of an iconic person."
+      }
+    ],
+    vocab: [
+      ["interview", "a meeting where someone answers questions"],
+      ["iconic", "very famous and representative of something"]
+    ]
   },
   {
-    slug: "in-the-news", title: "This Week in the News", kind: "slides", skill: "Reading", status: "pending",
-    dek: "A presentation about a current event and my opinion.",
-    media: null, body: "",
-    vocab: [["current events", "important things happening in the world now"], ["headline", "the title of a news story"]]
+    slug: "region-and-job", guide: "Guide 2",
+    title: "My Region and a Job Application",
+    dek: "A video about a tourist place in my region and a cover letter for a job.",
+    items: [
+      {
+        code: "GA2-240202501-AA2-EV02", kind: "video", status: "pending",
+        title: "A Tourist Place in My Region",
+        dek: "A presentation video about a place visitors should know."
+      },
+      {
+        code: "GA2-240202501-AA2-EV03", kind: "slides", status: "pending",
+        title: "My Cover Letter",
+        dek: "A letter in English to apply for a job."
+      }
+    ],
+    vocab: [
+      ["landmark", "a famous place that is easy to recognize"],
+      ["cover letter", "a letter you send with your CV when you apply for a job"]
+    ]
   },
   {
-    slug: "media-literacy", title: "Can You Trust Everything You See Online?", kind: "text", skill: "Critical thinking", status: "draft",
+    slug: "attitudes-and-plans", guide: "Guide 3",
+    title: "Attitudes, Beliefs and Plans",
+    dek: "Two recordings: one about attitudes, beliefs and obligations, and a podcast about my path and my plans.",
+    items: [
+      {
+        code: "GA3-240202501-AA1-EV02", kind: "audio", status: "pending",
+        title: "Attitudes, Beliefs and Obligations",
+        dek: "A recording about what I believe and what I have to do."
+      },
+      {
+        code: "GA3-240202501-AA2-EV02", kind: "audio", status: "pending",
+        title: "Podcast: My Path and My Plans",
+        dek: "A podcast about my experience, my plans and what I would do in different situations."
+      }
+    ],
+    vocab: [
+      ["belief", "something you think is true"],
+      ["must / have to", "words to talk about obligations"],
+      ["if I had…, I would…", "a conditional to talk about imaginary situations"]
+    ]
+  },
+  {
+    slug: "my-ple", guide: "Guide 4",
+    title: "My Personal Learning Environment",
+    dek: "A mind map about the people, tools and places I use to learn.",
+    items: [
+      {
+        code: "GA4-240202501-AA1-EV02", kind: "image", status: "pending",
+        title: "Mind Map: My PLE",
+        dek: "A mind map in English about my personal learning environment."
+      }
+    ],
+    vocab: [
+      ["learning environment", "the tools, people and places you use to learn"],
+      ["mind map", "a diagram that organizes ideas around a central topic"]
+    ]
+  },
+  {
+    slug: "media-literacy", guide: "New topic", isNew: true,
+    title: "Can You Trust Everything You See Online?",
     dek: "Some simple questions I ask myself before I believe or share a piece of news.",
-    media: null,
-    body: `
+    items: [{
+      kind: "text", status: "draft",
+      body: `
 <p>Every day I see a lot of information on my phone: videos on TikTok, messages in WhatsApp groups and posts on Facebook. Some of it is true, some of it is half true and some of it is completely false. The problem is that false news usually looks very real, and it travels faster than the truth.</p>
 <p>Last month my aunt sent a message to our family group. It said that a famous supermarket was giving free food to everyone who shared the message ten times. A lot of people shared it, but it was a scam. When I looked for the supermarket's official page, there was nothing about it. That is when I understood that <em class="v">critical thinking</em> is not only for school. It is a skill we need every day.</p>
 <h2>My four questions</h2>
 <p>Now, before I believe or share something, I ask myself four questions. First, who wrote it? If I can't find the <em class="v">source</em>, I don't trust it. Second, is the <em class="v">headline</em> trying to make me angry or scared? Strong emotions are often a sign of <em class="v">misleading</em> content. Third, do other reliable media say the same thing? If only one page has the story, I wait. Fourth, is the information recent? Many people share old photos as if they were new.</p>
 <p>I also try to remember that every media outlet has some <em class="v">bias</em>. That doesn't mean everything they say is a lie. It means I should read more than one point of view before I form an opinion.</p>
 <h2>What I learned</h2>
-<p>Being media literate doesn't mean we have to stop using social networks. It means we have to use them more carefully. If we <em class="v">fact-check</em> before we share, we protect our families and our friends. In my opinion, the most important question is not "Is this interesting?" but "Is this true?"</p>`,
+<p>Being media literate doesn't mean we have to stop using social networks. It means we have to use them more carefully. If we <em class="v">fact-check</em> before we share, we protect our families and our friends. In my opinion, the most important question is not "Is this interesting?" but "Is this true?"</p>`
+    }],
     vocab: [
       ["critical thinking", "analyzing information carefully before you accept it"],
       ["source", "the person or place where information comes from"],
@@ -481,10 +569,12 @@ const POSTS = [
     ]
   },
   {
-    slug: "crime-and-punishment", title: "Crime and Punishment: Is Prison the Only Answer?", kind: "text", skill: "Opinion", status: "draft",
+    slug: "crime-and-punishment", guide: "New topic", isNew: true,
+    title: "Crime and Punishment: Is Prison the Only Answer?",
     dek: "My opinion about how society should respond when someone breaks the law.",
-    media: null,
-    body: `
+    items: [{
+      kind: "text", status: "draft",
+      body: `
 <p>When people hear about a crime on the news, the first reaction is usually the same: "Put them in jail." I understand this feeling. Crime hurts families, and victims deserve justice. However, I believe prison should not be the only answer for every <em class="v">offender</em>.</p>
 <h2>Different crimes, different punishments</h2>
 <p>Not all crimes are equal. A person who <em class="v">commits a crime</em> like murder or kidnapping is a danger to society, and a long <em class="v">sentence</em> in prison is necessary. But what about a teenager who steals a phone for the first time? In that case, I think a <em class="v">fine</em> or <em class="v">community service</em> could be more useful. For example, the young person could help clean parks or work in a food bank. This way, they repair part of the damage and they learn about responsibility.</p>
@@ -492,7 +582,8 @@ const POSTS = [
 <p>In many countries, including mine, prisons are overcrowded. When someone young goes to prison for a small crime, they often meet dangerous criminals there, and when they get out, they are worse than before. That is why I support <em class="v">rehabilitation</em>: education, therapy and job training for prisoners. If a person learns a trade, it is less likely that they will commit another crime.</p>
 <p>Some people say that hard punishments are a good <em class="v">deterrent</em>, because people are afraid of going to jail. That may be true in some cases, but many crimes happen because of poverty, drugs or lack of opportunities. Punishment alone doesn't solve those problems.</p>
 <h2>My conclusion</h2>
-<p>In my opinion, a fair justice system protects society from dangerous people, but it also gives a second chance to people who made a mistake. The <em class="v">judge</em> should consider the crime, the age of the offender and the possibility of change. Justice is not only about punishment; it is also about preventing the next crime.</p>`,
+<p>In my opinion, a fair justice system protects society from dangerous people, but it also gives a second chance to people who made a mistake. The <em class="v">judge</em> should consider the crime, the age of the offender and the possibility of change. Justice is not only about punishment; it is also about preventing the next crime.</p>`
+    }],
     vocab: [
       ["offender", "a person who has broken the law"],
       ["commit a crime", "to do something illegal"],
@@ -506,15 +597,19 @@ const POSTS = [
   }
 ];
 
+// Enlaces viejos que ya se compartieron
+const ALIASES = { "meet-my-friend": "introductions", "my-program": "introductions", "introduce-myself": "introductions" };
+
 /* ====== Lógica ====== */
-const KIND = { text: "TXT", video: "MP4", audio: "MP3", slides: "PDF" };
+const KIND = { text: "TXT", video: "MP4", audio: "MP3", slides: "PDF", image: "PNG" };
 const STATUS = { ready: "Published", draft: "Draft", pending: "Coming soon" };
+const has = (p, ...kinds) => p.items.some(it => kinds.includes(it.kind));
 const FILTERS = [
   ["all", "All", () => true],
-  ["text", "Writing", p => p.kind === "text" || p.kind === "slides"],
-  ["video", "Videos", p => p.kind === "video"],
-  ["audio", "Audios", p => p.kind === "audio"],
-  ["new", "New topics", p => p.slug === "media-literacy" || p.slug === "crime-and-punishment"]
+  ["video", "Videos", p => has(p, "video")],
+  ["audio", "Audios", p => has(p, "audio")],
+  ["text", "Writing", p => has(p, "text", "slides", "image")],
+  ["new", "New topics", p => !!p.isNew]
 ];
 const EASE = "cubic-bezier(.23, 1, .32, 1)";
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -523,9 +618,19 @@ let lastCard = null; // de dónde se abrió la entrada, para que la ventana nazc
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-function readingTime(html) {
+function postStatus(p) {
+  const n = p.items.length;
+  const ready = p.items.filter(it => it.status === "ready").length;
+  if (ready === n) return ["ready", STATUS.ready];
+  if (p.items.every(it => it.status === "draft")) return ["draft", STATUS.draft];
+  if (ready > 0) return ["partial", `${ready} of ${n} ready`];
+  return ["pending", STATUS.pending];
+}
+
+function readingTime(p) {
+  const html = p.items.map(it => it.body || "").join(" ");
   const words = html.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length;
-  return words ? Math.max(1, Math.round(words / 180)) + " min read" : "";
+  return words > 120 ? Math.max(1, Math.round(words / 180)) + " min read" : "";
 }
 
 function renderSite() {
@@ -539,8 +644,9 @@ function renderSite() {
   $("chat").innerHTML = '<div class="day">Today</div>' +
     SITE.about.map(([who, text]) => `<div class="bubble ${who}">${esc(text)}</div>`).join("");
 
+  const items = POSTS.flatMap(p => p.items);
   $("count-total").textContent = POSTS.length;
-  $("count-ready").textContent = POSTS.filter(p => p.status === "ready").length;
+  $("count-ready").textContent = items.filter(it => it.status === "ready").length + "/" + items.length;
   $("count-words").textContent = POSTS.reduce((n, p) => n + p.vocab.length, 0);
 
   // Palabra del día: cambia cada día y es la misma para todos ese día
@@ -571,17 +677,25 @@ function moveSeg(animate) {
   if (!animate) { box.offsetWidth; box.style.transition = ""; }
 }
 
+function docIcons(p) {
+  return `<span class="docs" aria-hidden="true">${p.items.map(it => `<span class="doc ${it.kind}">${KIND[it.kind]}</span>`).join("")}</span>`;
+}
+
 function renderGrid(animate) {
   const fn = FILTERS.find(f => f[0] === currentFilter)[2];
   const list = POSTS.filter(fn);
   $("items-meta").textContent = list.length + (list.length === 1 ? " item" : " items");
-  $("grid").innerHTML = list.map(p => `
+  $("grid").innerHTML = list.map(p => {
+    const [cls, label] = postStatus(p);
+    const n = p.items.length;
+    return `
     <a class="card" href="#${p.slug}">
-      <div class="top"><span class="doc ${p.kind}" aria-hidden="true">${KIND[p.kind]}</span><span class="pill ${p.status}">${STATUS[p.status]}</span></div>
+      <div class="top">${docIcons(p)}<span class="pill ${cls}">${label}</span></div>
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.dek)}</p>
-      <div class="foot"><span>${esc(p.skill)}</span><span>${readingTime(p.body)}</span></div>
-    </a>`).join("");
+      <div class="foot"><span>${esc(p.guide)}</span><span>${readingTime(p) || (n > 1 ? n + " evidences" : "1 evidence")}</span></div>
+    </a>`;
+  }).join("");
   if (animate && !reduced()) {
     [...$("grid").children].forEach((el, i) => el.animate(
       [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
@@ -590,38 +704,54 @@ function renderGrid(animate) {
   }
 }
 
-function mediaHTML(p) {
-  const m = p.media;
+function mediaHTML(it, title) {
+  const m = it.media;
   if (!m) {
-    if (p.kind === "text") return "";
-    const what = { video: "The video", audio: "The audio", slides: "The document" }[p.kind];
+    if (it.kind === "text" && it.body) return "";
+    const what = { video: "The video", audio: "The audio", slides: "The document", image: "The image", text: "The text" }[it.kind];
     return `<div class="media"><div class="slot"><b>${what} goes here</b>Coming soon.</div></div>`;
   }
+  const frame = m.vertical ? "frame vertical" : "frame";
   if (m.type === "youtube") {
     const id = encodeURIComponent(m.id);
-    return `<div class="media"><div class="frame${m.vertical ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0" title="${esc(p.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>`;
+    return `<div class="media"><div class="${frame}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?playsinline=1&rel=0" title="${esc(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>`;
   }
+  if (m.type === "video") return `<div class="media"><div class="${frame}"><video controls playsinline preload="metadata" src="${esc(m.src)}" title="${esc(title)}"></video></div></div>`;
   if (m.type === "audio") return `<div class="media"><audio controls preload="none" src="${esc(m.src)}"></audio></div>`;
-  if (m.type === "image") return `<figure class="media"><a class="sheet" href="${esc(m.pdf || m.src)}" target="_blank" rel="noopener"><img src="${esc(m.src)}" alt="${esc(m.alt || p.title)}" width="${m.width || ""}" height="${m.height || ""}"></a>${m.pdf ? `<figcaption><a class="out" href="${esc(m.pdf)}" target="_blank" rel="noopener">Open the PDF ›</a></figcaption>` : ""}</figure>`;
+  if (m.type === "image") return `<figure class="media"><a class="sheet" href="${esc(m.pdf || m.src)}" target="_blank" rel="noopener"><img src="${esc(m.src)}" alt="${esc(m.alt || title)}" width="${m.width || ""}" height="${m.height || ""}"></a>${m.pdf ? `<figcaption><a class="out" href="${esc(m.pdf)}" target="_blank" rel="noopener">Open the PDF ›</a></figcaption>` : ""}</figure>`;
   if (m.type === "link") return `<div class="media"><div class="slot"><b>${esc(m.label || "Open the file")}</b><a class="out" href="${esc(m.url)}" target="_blank" rel="noopener">Open ›</a></div></div>`;
   return "";
 }
 
+function itemHTML(p, it) {
+  // Una entrada nueva tiene un solo texto sin código: se muestra sin encabezado propio
+  if (!it.code) return `${mediaHTML(it, p.title)}${it.body ? `<div class="body">${it.body}</div>` : ""}`;
+  return `
+    <section class="evidence">
+      <div class="ev-head">
+        <span class="doc ${it.kind}" aria-hidden="true">${KIND[it.kind]}</span>
+        <div><div class="ev-code">${esc(it.code)}</div><h2>${esc(it.title)}</h2></div>
+        <span class="pill ${it.status}">${STATUS[it.status]}</span>
+      </div>
+      ${it.dek ? `<p class="ev-dek">${esc(it.dek)}</p>` : ""}
+      ${mediaHTML(it, it.title)}
+      ${it.body ? `<div class="body">${it.body}</div>` : ""}
+    </section>`;
+}
+
 function renderPost(p) {
   const i = POSTS.indexOf(p);
-  $("reader-file").textContent = p.slug + "." + KIND[p.kind].toLowerCase();
+  $("reader-file").textContent = p.items.length > 1 ? p.slug + "/" : p.slug + "." + KIND[p.items[0].kind].toLowerCase();
   $("reader-pos").textContent = (i + 1) + " of " + POSTS.length;
-  const note = p.status === "draft"
-    ? '<div class="callout">Draft. Read it again and make it sound like you before you publish it.</div>'
-    : p.status === "pending" ? '<div class="callout">This post is waiting for the work I made in class.</div>' : "";
-  const rt = readingTime(p.body);
+  const note = p.items.some(it => it.status === "draft")
+    ? '<div class="callout">Draft. Read it again and make it sound like you before you publish it.</div>' : "";
+  const rt = readingTime(p);
   $("post").innerHTML = `
     ${note}
-    <div class="tags">${p.evidence ? `<span class="tag">${esc(p.evidence)}</span>` : ""}<span class="tag">${esc(p.skill)}</span><span class="tag">${KIND[p.kind]}</span>${rt ? `<span class="tag">${rt}</span>` : ""}</div>
+    <div class="tags"><span class="tag">${esc(p.guide)}</span><span class="tag">${p.items.length > 1 ? p.items.length + " evidences" : KIND[p.items[0].kind]}</span>${rt ? `<span class="tag">${rt}</span>` : ""}</div>
     <h1>${esc(p.title)}</h1>
     <p class="dek">${esc(p.dek)}</p>
-    ${mediaHTML(p)}
-    <div class="body">${p.body}</div>
+    ${p.items.map(it => itemHTML(p, it)).join("")}
     ${p.vocab.length ? `<section class="vocab"><h2>Key vocabulary</h2><dl>${p.vocab.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join("")}</dl></section>` : ""}`;
   const prev = POSTS[i - 1], next = POSTS[i + 1];
   $("pager").innerHTML =
@@ -630,7 +760,8 @@ function renderPost(p) {
 }
 
 function route() {
-  const slug = location.hash.slice(1);
+  let slug = location.hash.slice(1);
+  if (ALIASES[slug]) { history.replaceState(null, "", "#" + ALIASES[slug]); slug = ALIASES[slug]; }
   const p = POSTS.find(x => x.slug === slug);
   const wasReading = !$("reader").hidden;
   $("home").hidden = !!p;
