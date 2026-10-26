@@ -179,55 +179,141 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .note p { font: 1rem/1.45 var(--read); margin: 12px 0 0; }
 .note a { display: inline-block; margin-top: 14px; font-size: .8125rem; font-weight: 600; text-decoration: none; }
 
-/* Entradas */
-.toolbar { padding: 14px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
-.toolbar::-webkit-scrollbar { display: none; }
-/* Borde que se desvanece cuando hay más filtros por deslizar */
-.toolbar.more-right { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
-.toolbar.more-left { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); }
-.toolbar.more-left.more-right { -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
-.seg { position: relative; display: inline-flex; padding: 3px; border-radius: 999px; background: var(--win-bar); box-shadow: inset 0 0 0 1px var(--line); }
-.seg-list { display: flex; }
-.seg button {
-  font: 500 .875rem/1 var(--ui); color: var(--ink); background: none; border: 0; cursor: pointer;
-  padding: 9px 14px; border-radius: 999px; white-space: nowrap; display: flex; gap: 6px; align-items: center;
-  -webkit-tap-highlight-color: transparent; transition: opacity .15s ease;
+/* Entradas: una mini Mac con el Finder abierto. Siempre oscura, con bisel, notch y base de portátil.
+   Barra lateral flotante; las carpetas son las guías y los archivos, las evidencias.
+   En íconos la carpeta se abre; en lista se despliega con su flechita. */
+.mac {
+  --fd-bg: #1E1E20; --fd-side: #151517; --fd-ctrl: #2A2A2D; --fd-line: rgba(255, 255, 255, .08);
+  --fd-ink: #F2F2F4; --fd-muted: #8E8E93; --fd-hover: rgba(255, 255, 255, .06); --fd-sel: rgba(255, 255, 255, .11);
+  --fd-off: #5A5A5E;
+  position: relative; padding: 10px; margin-bottom: 14px; border-radius: 26px; background: #0A0A0B;
+  box-shadow: inset 0 0 0 1.5px #2C2C2E, 0 40px 80px -36px rgba(0, 0, 0, .55);
+  animation: enter .36s var(--ease-out) .06s both;
 }
-.seg-list button:active { opacity: .55; }
-.seg button span { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .8125rem; }
-/* Copia de la lista con estilo activo, recortada al botón elegido (clip-path) */
-.seg-active {
-  position: absolute; inset: 3px; display: flex; pointer-events: none;
-  background: var(--ink); border-radius: 999px;
-  clip-path: inset(0 100% 0 0 round 999px);
-  transition: clip-path .24s var(--ease-out);
+/* La base del portátil, con la muesca para abrir la tapa */
+.mac::after {
+  content: ""; position: absolute; left: -14px; right: -14px; bottom: -14px; height: 14px;
+  border-radius: 2px 2px 18px 18px / 2px 2px 12px 12px;
+  background: radial-gradient(64px 7px at 50% 0, rgba(0, 0, 0, .2), transparent), linear-gradient(#E8E8EB, #ABABB0);
+  box-shadow: 0 12px 20px -10px rgba(0, 0, 0, .4);
 }
-.seg-active button, .seg-active button span { color: var(--page); }
-.seg-active button span { opacity: .65; }
+:root[data-theme="dark"] .mac::after { background: radial-gradient(64px 7px at 50% 0, rgba(0, 0, 0, .45), transparent), linear-gradient(#4C4C50, #2A2A2C); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mac::after { background: radial-gradient(64px 7px at 50% 0, rgba(0, 0, 0, .45), transparent), linear-gradient(#4C4C50, #2A2A2C); }
+}
+.notch {
+  position: absolute; top: 0; left: 50%; z-index: 2; width: 130px; height: 22px; margin-left: -65px;
+  border-radius: 0 0 12px 12px; background: #0A0A0B;
+}
+.notch::after {
+  content: ""; position: absolute; top: 7px; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3A4660, #10141C 70%);
+}
+.finder {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: 540px;
+  border-radius: 17px; overflow: hidden; background: var(--fd-bg); color: var(--fd-ink);
+}
 
-.grid { padding: 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.card {
-  text-decoration: none; color: inherit; background: var(--win); border-radius: 14px; padding: 16px;
-  box-shadow: 0 0 0 1px var(--line); display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; min-width: 0;
-  transition: transform .16s var(--ease-out), box-shadow .2s ease;
-  -webkit-tap-highlight-color: transparent;
+/* Barra lateral */
+.fd-side { margin: 8px; padding: 14px 10px; border-radius: 12px; background: var(--fd-side); box-shadow: 0 0 0 1px var(--fd-line); }
+.fd-side .lights { padding: 0 6px 6px; }
+.fd-sec { font: 600 .6875rem/1 var(--ui); color: var(--fd-muted); padding: 16px 8px 6px; }
+.fd-link {
+  display: flex; align-items: center; gap: 9px; width: 100%; padding: 7px 8px; border: 0; border-radius: 7px;
+  background: none; color: var(--fd-ink); font: 500 .8125rem/1.2 var(--ui); text-align: left; cursor: pointer;
+  white-space: nowrap; -webkit-tap-highlight-color: transparent; transition: background-color .15s ease;
 }
-.card:active { transform: scale(.97); }
-@media (hover: hover) and (pointer: fine) { .card:hover { box-shadow: 0 0 0 1px var(--line), 0 10px 26px -12px rgba(0, 0, 0, .25); } }
-.card .top { display: flex; justify-content: space-between; align-items: flex-start; }
-.card h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; }
-.card p { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.45; }
-.card .foot { display: flex; justify-content: space-between; gap: 8px; font-size: .75rem; color: var(--muted); }
-/* Si la última tarjeta queda sola en su fila, ocupa toda la fila en horizontal */
-.card.solo {
-  grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); grid-template-rows: auto 1fr auto;
-  grid-template-areas: "top top" "title desc" "foot foot"; column-gap: 28px;
+.fd-link svg { width: 16px; height: 16px; flex: none; color: var(--fd-muted); }
+.fd-link .dot { width: 10px; height: 10px; margin: 3px; border-radius: 50%; flex: none; }
+.fd-link .n { margin-left: auto; color: var(--fd-muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.fd-link[aria-current="true"] { background: var(--fd-sel); }
+
+/* Barra de herramientas */
+.fd-main { display: flex; flex-direction: column; min-width: 0; }
+.fd-bar { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px 10px; }
+.fd-pill { display: flex; padding: 3px; border-radius: 999px; background: var(--fd-ctrl); box-shadow: inset 0 0 0 1px var(--fd-line); flex: none; }
+.fd-pill button {
+  width: 34px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 999px;
+  background: none; color: var(--fd-ink); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background-color .15s ease, opacity .15s ease;
 }
-.card.solo .top { grid-area: top; }
-.card.solo h3 { grid-area: title; font-size: 1.375rem; }
-.card.solo p { grid-area: desc; }
-.card.solo .foot { grid-area: foot; }
-.card.solo:active { transform: scale(.98); }
+.fd-pill button:active:not(:disabled) { opacity: .55; }
+.fd-pill button:disabled { color: var(--fd-off); cursor: default; }
+.fd-pill svg { width: 16px; height: 16px; }
+.fd-views button[aria-pressed="true"] { background: rgba(255, 255, 255, .14); }
+.fd-title { flex: 1; min-width: 0; font: 650 .9375rem/1.2 var(--ui); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fd-search {
+  display: flex; align-items: center; gap: 7px; width: 210px; height: 36px; padding: 0 12px; flex: none;
+  border-radius: 999px; background: var(--fd-ctrl); box-shadow: inset 0 0 0 1px var(--fd-line); color: var(--fd-muted);
+  transition: box-shadow .15s ease;
+}
+.fd-search svg { width: 15px; height: 15px; flex: none; }
+.fd-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--fd-ink); font: 1rem/1 var(--ui); font-size: max(16px, .8125rem); -webkit-appearance: none; appearance: none; }
+.fd-search input::placeholder { color: var(--fd-muted); }
+.fd-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.fd-search:focus-within { box-shadow: inset 0 0 0 1px var(--fd-line), 0 0 0 3px rgba(41, 151, 255, .45); }
+
+/* Contenido: íconos */
+.fd-body { flex: 1; padding: 16px 18px 24px; }
+.fd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 14px 6px; align-content: start; }
+.fd-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 6px 12px; min-width: 0;
+  border: 0; border-radius: 10px; background: none; color: inherit; font: inherit; text-align: center; text-decoration: none;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background-color .15s ease, transform .16s var(--ease-out);
+}
+.fd-item:active { transform: scale(.95); background: var(--fd-sel); }
+.fd-icon { height: 70px; display: grid; place-items: end center; margin-bottom: 6px; }
+.fold { display: block; width: 84px; height: 66px; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
+.fd-item .doc {
+  width: 50px; height: 62px; padding-bottom: 9px; border-radius: 5px 15px 5px 5px; font-size: .6875rem;
+  background-image: linear-gradient(225deg, rgba(255, 255, 255, .35) 0 13px, transparent 13px);
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, .5);
+}
+.fd-item.pending .doc { opacity: .4; }
+.fd-name { max-width: 100%; font: 600 .8125rem/1.3 var(--ui); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fd-sub { font-size: .6875rem; color: var(--fd-muted); font-variant-numeric: tabular-nums; }
+.fd-sub.ready { color: #30D158; }
+.fd-sub.draft { color: #FF9F0A; }
+
+/* Contenido: lista que se despliega */
+.fd-head, .fd-row { display: grid; grid-template-columns: minmax(0, 1fr) 112px 104px; gap: 12px; align-items: center; padding: 0 10px; }
+.fd-head { padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--fd-line); color: var(--fd-muted); font: 600 .6875rem/1 var(--ui); }
+.fd-row {
+  width: 100%; min-height: 36px; border: 0; border-radius: 7px; background: none; color: inherit;
+  font: 500 .8125rem/1.2 var(--ui); text-align: left; text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: background-color .15s ease;
+}
+.fd-rows > :nth-child(even) { background: rgba(255, 255, 255, .025); }
+.fd-row:active { background: var(--fd-sel) !important; }
+.fd-row .nm { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.fd-row .nm span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fd-row .cell { color: var(--fd-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fd-row .cell.ready { color: #30D158; }
+.fd-row .cell.draft { color: #FF9F0A; }
+.chev { width: 12px; height: 12px; flex: none; color: var(--fd-muted); transition: transform .2s var(--ease-out); }
+.fd-row[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.fd-row .fold { width: 22px; height: 17px; filter: none; flex: none; }
+.fd-row .doc {
+  width: 16px; height: 20px; padding: 0; flex: none; font-size: 0; border-radius: 2px 5px 2px 2px;
+  background-image: linear-gradient(225deg, rgba(255, 255, 255, .35) 0 5px, transparent 5px);
+}
+.fd-row.child .nm { padding-left: 20px; }
+.fd-row.pending .doc { opacity: .4; }
+.fd-empty { padding: 72px 0; text-align: center; color: var(--fd-muted); font-size: .875rem; }
+
+/* Barra de ruta */
+.fd-path { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--fd-line); font-size: .75rem; color: var(--fd-muted); }
+.fd-crumbs { display: flex; align-items: center; gap: 4px; min-width: 0; white-space: nowrap; overflow: hidden; }
+.fd-crumbs button { border: 0; background: none; color: inherit; font: inherit; padding: 2px 3px; border-radius: 5px; cursor: pointer; }
+.fd-crumbs button[aria-current="true"] { color: var(--fd-ink); font-weight: 600; cursor: default; }
+.fd-crumbs i { font-style: normal; opacity: .6; }
+#fd-count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .fd-link:hover:not([aria-current="true"]), .fd-item:hover, .fd-row:hover, .fd-pill button:hover:not(:disabled):not([aria-pressed="true"]) { background: var(--fd-hover); }
+  .fd-crumbs button:hover:not([aria-current="true"]) { color: var(--fd-ink); }
+}
 .doc {
   width: 34px; height: 42px; border-radius: 4px 11px 4px 4px; display: grid; place-items: end center; padding-bottom: 6px;
   font: 700 .5625rem/1 var(--mono); color: #fff; letter-spacing: .04em;
@@ -238,8 +324,6 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .doc.audio { background-color: #AF52DE; }
 .doc.slides { background-color: #FF9500; }
 .doc.image { background-color: #34C759; }
-.docs { display: flex; gap: 6px; }
-.card .docs .doc { width: 28px; height: 34px; border-radius: 3px 9px 3px 3px; padding-bottom: 5px; font-size: .5rem; background-image: linear-gradient(225deg, rgba(255, 255, 255, .35) 0 7px, transparent 7px); }
 .pill.partial { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
 .pill { font-size: .6875rem; font-weight: 600; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
 .pill.ready { background: var(--ok-soft); color: var(--ok); }
@@ -268,7 +352,7 @@ article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
 .media .frame.vertical { aspect-ratio: 9 / 16; width: min(100%, 360px); margin: 0 auto; }
 .media audio { width: 100%; }
 .media video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; }
-.evidence { margin-top: 44px; padding-top: 30px; border-top: 1px solid var(--line); }
+.evidence { scroll-margin-top: 64px; margin-top: 44px; padding-top: 30px; border-top: 1px solid var(--line); }
 .ev-head { display: flex; align-items: center; gap: 14px; }
 .ev-head > div { flex: 1; min-width: 0; }
 .ev-head .doc { flex: none; }
@@ -353,21 +437,36 @@ figure.media { margin: 32px 0; }
 
 footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 0 44px; color: var(--muted); font-size: .75rem; }
 
-@media (max-width: 900px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 600px) {
-  .grid { grid-template-columns: 1fr; }
-  .card:active { transform: scale(.98); }
-  .card.solo { grid-template-columns: 1fr; grid-template-areas: "top" "title" "desc" "foot"; row-gap: 10px; }
-  .card.solo h3 { font-size: 1.125rem; }
   .menubar .cefr { display: none; }
 }
 @media (max-width: 760px) {
   .menubar nav { display: none; }
   .hero-body { grid-template-columns: 1fr; padding: 32px 22px 28px; gap: 32px; }
   .note { transform: rotate(1.5deg); }
-  .grid { padding: 14px; }
+  /* La Mac en el celular: sin barra lateral; sus accesos pasan a una fila de chips bajo la barra */
+  .mac { padding: 7px; border-radius: 20px; }
+  .mac::after { left: -10px; right: -10px; bottom: -11px; height: 11px; }
+  .notch { width: 84px; height: 15px; margin-left: -42px; border-radius: 0 0 9px 9px; }
+  .notch::after { top: 4px; width: 5px; height: 5px; margin-left: -2.5px; }
+  .finder { grid-template-columns: minmax(0, 1fr); min-height: 0; border-radius: 14px; }
+  .fd-main { display: contents; }
+  .fd-bar { order: 1; flex-wrap: wrap; padding: 14px 10px 8px; }
+  .fd-search { order: 5; width: 100%; }
+  .fd-side { order: 2; margin: 0; padding: 0 0 10px; border-radius: 0; background: none; box-shadow: none; min-width: 0; }
+  .fd-side .lights, .fd-sec, .fd-link .n { display: none; }
+  .fd-side nav { display: flex; gap: 6px; padding: 0 10px; overflow-x: auto; scrollbar-width: none; }
+  .fd-side nav::-webkit-scrollbar { display: none; }
+  .fd-link { width: auto; flex: none; padding: 8px 12px; border-radius: 999px; background: var(--fd-ctrl); }
+  .fd-link[aria-current="true"] { background: var(--fd-ink); color: var(--fd-bg); }
+  .fd-link[aria-current="true"] svg { color: inherit; }
+  .fd-body { order: 3; padding: 8px 10px 18px; min-height: 300px; }
+  .fd-path { order: 4; padding: 10px 12px; }
+  .fd-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px 2px; }
+  .fd-item .fold { width: 72px; height: 57px; }
+  .fd-icon { height: 62px; }
+  .fd-head, .fd-row { grid-template-columns: minmax(0, 1fr) 92px; padding: 0 8px; }
+  .fd-head > :nth-child(3), .fd-row > :nth-child(3) { display: none; }
   article.post { padding: 32px 18px 18px; }
   .pager { grid-template-columns: 1fr; padding: 8px 18px 28px; }
   .pager .next { grid-column: 1; }
@@ -377,9 +476,10 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .win { animation: fade .2s ease both; }
-  .btn:active, .card:active, .pager a:active, .play:active, .media .sheet:active { transform: none; }
+  .mac { animation: fade .2s ease both; }
+  .btn:active, .fd-item:active, .pager a:active, .play:active, .media .sheet:active { transform: none; }
   .note, .note:hover { transform: none; transition: none; }
-  .seg-active { transition: clip-path .01s; }
+  .chev { transition: none; }
 }
 @keyframes fade { from { opacity: 0; } }
 @media (prefers-reduced-transparency: reduce) {
@@ -434,15 +534,44 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <h2>The posts.</h2>
       <p>Open them like files on my Mac.</p>
     </div>
-    <section class="win" aria-label="Posts">
-      <div class="bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">Posts</div><div class="bar-meta" id="items-meta"></div></div>
-      <div class="toolbar">
-        <div class="seg" id="seg">
-          <div class="seg-list" id="seg-list" role="group" aria-label="Filter posts"></div>
-          <div class="seg-active" id="seg-active" aria-hidden="true"></div>
+    <section class="mac" aria-label="Posts">
+      <div class="notch" aria-hidden="true"></div>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <linearGradient id="fold-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B6B70"/><stop offset="1" stop-color="#4A4A4F"/></linearGradient>
+          <symbol id="i-folder" viewBox="0 0 84 66">
+            <path d="M2 9a6 6 0 0 1 6-6h19.2a6 6 0 0 1 4.3 1.8L36 9.5h40a6 6 0 0 1 6 6V22H2Z" fill="#3E3E42"/>
+            <rect x="7" y="12" width="70" height="12" rx="2" fill="#ECECEE"/>
+            <rect x="2" y="16" width="80" height="48" rx="6" fill="url(#fold-front)"/>
+            <rect x="4" y="16" width="76" height="1.2" rx=".6" fill="#FFFFFF" fill-opacity=".22"/>
+          </symbol>
+        </defs>
+      </svg>
+      <div class="finder">
+        <aside class="fd-side">
+          <div class="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+          <nav id="fd-nav" aria-label="Places"></nav>
+        </aside>
+        <div class="fd-main">
+          <div class="fd-bar">
+            <div class="fd-pill">
+              <button type="button" id="fd-back" aria-label="Back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg></button>
+              <button type="button" id="fd-fwd" aria-label="Forward"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg></button>
+            </div>
+            <h3 class="fd-title" id="fd-title" aria-live="polite">Posts</h3>
+            <div class="fd-pill fd-views" id="fd-views" role="group" aria-label="View">
+              <button type="button" data-view="grid" aria-label="Icons" aria-pressed="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="4.4" height="4.4" rx="1"/><rect x="9.1" y="2.5" width="4.4" height="4.4" rx="1"/><rect x="2.5" y="9.1" width="4.4" height="4.4" rx="1"/><rect x="9.1" y="9.1" width="4.4" height="4.4" rx="1"/></svg></button>
+              <button type="button" data-view="list" aria-label="List" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M6 4h7.5M6 8h7.5M6 12h7.5"/><circle cx="2.9" cy="4" r=".9" fill="currentColor" stroke="none"/><circle cx="2.9" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="2.9" cy="12" r=".9" fill="currentColor" stroke="none"/></svg></button>
+            </div>
+            <label class="fd-search">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.3 3.3"/></svg>
+              <input type="search" id="fd-q" placeholder="Search" aria-label="Search the posts" autocomplete="off">
+            </label>
+          </div>
+          <div class="fd-body" id="fd-body"></div>
+          <div class="fd-path"><nav class="fd-crumbs" id="fd-crumbs" aria-label="Path"></nav><span id="fd-count"></span></div>
         </div>
       </div>
-      <div class="grid" id="grid"></div>
     </section>
 
     <div class="section-head" id="about-me">
@@ -725,30 +854,146 @@ const ALIASES = { "meet-my-friend": "introductions", "my-program": "introduction
 
 /* ====== Lógica ====== */
 const KIND = { text: "TXT", video: "MP4", audio: "MP3", slides: "PDF", image: "PNG" };
+const KIND_NAME = { text: "Text", video: "Video", audio: "Audio", slides: "PDF document", image: "Image" };
 const STATUS = { ready: "Published", draft: "Draft", pending: "In progress" };
-const has = (p, ...kinds) => p.items.some(it => kinds.includes(it.kind));
-const FILTERS = [
-  ["all", "All", () => true],
-  ["video", "Videos", p => has(p, "video")],
-  ["audio", "Audios", p => has(p, "audio")],
-  ["text", "Writing", p => has(p, "text", "slides", "image")],
-  ["new", "New topics", p => !!p.isNew]
-];
 const EASE = "cubic-bezier(.23, 1, .32, 1)";
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-let currentFilter = "all";
 let lastCard = null; // de dónde se abrió la entrada, para que la ventana nazca ahí
-let readingSlug = null; // la entrada abierta, para volver a su tarjeta al salir
+let readingHash = null; // la entrada abierta, para volver a su archivo al salir
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-function postStatus(p) {
-  const n = p.items.length;
-  const ready = p.items.filter(it => it.status === "ready").length;
-  if (ready === n) return ["ready", STATUS.ready];
-  if (p.items.every(it => it.status === "draft")) return ["draft", STATUS.draft];
-  if (ready > 0) return ["partial", `${ready} of ${n} ready`];
-  return ["pending", STATUS.pending];
+/* ====== El Finder: las guías son carpetas y las evidencias, archivos ====== */
+const TAGS = [
+  ["video", "Videos", ["video"], "#FF3B30"],
+  ["audio", "Audios", ["audio"], "#AF52DE"],
+  ["text", "Texts", ["text"], "#3478F6"],
+  ["image", "Images & PDFs", ["image", "slides"], "#34C759"]
+];
+const SVG = (d, extra = "") => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${extra}>${d}</svg>`;
+const SIDE_ICON = {
+  all: SVG('<circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.3 1.5"/>'),
+  root: SVG('<path d="M2.5 7.2 8 2.6l5.5 4.6V13a.8.8 0 0 1-.8.8H9.6V10H6.4v3.8H3.3a.8.8 0 0 1-.8-.8Z"/>'),
+  folder: SVG('<path d="M1.8 4.3c0-.6.5-1.1 1.1-1.1h3.3l1.4 1.5h5.5c.6 0 1.1.5 1.1 1.1v6.4c0 .6-.5 1.1-1.1 1.1H2.9c-.6 0-1.1-.5-1.1-1.1Z"/>')
+};
+const CHEV = SVG('<path d="M6 4l4 4-4 4"/>', ' class="chev"');
+const FOLD = '<svg class="fold" viewBox="0 0 84 66" aria-hidden="true"><use href="#i-folder"/></svg>';
+
+const FILES = POSTS.flatMap(p => p.items.map((it, i) => ({
+  p, it,
+  name: (it.title || p.title) + "." + KIND[it.kind].toLowerCase(),
+  href: "#" + p.slug + (i ? "/" + i : "")
+})));
+const FOLDERS = [...new Set(POSTS.map(p => p.guide))].map(g => ({
+  id: g.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+  name: g === "New topic" ? "New topics" : g,
+  files: FILES.filter(f => f.p.guide === g)
+}));
+
+let fdView = "grid";
+try { if (localStorage.getItem("fd-view") === "list") fdView = "list"; } catch {}
+const fd = { loc: "root", q: "", open: new Set(), back: [], fwd: [] };
+const plural = n => n + (n === 1 ? " item" : " items");
+
+function place(loc) {
+  if (loc === "all") return { title: "All files", files: FILES };
+  const tag = TAGS.find(t => "tag:" + t[0] === loc);
+  if (tag) return { title: tag[1], files: FILES.filter(f => tag[2].includes(f.it.kind)) };
+  const folder = FOLDERS.find(f => f.id === loc);
+  if (folder) return { title: folder.name, files: folder.files, inRoot: true };
+  return { title: "Posts", folders: FOLDERS };
+}
+
+function renderSide() {
+  const link = (loc, icon, label, n) =>
+    `<button class="fd-link" type="button" data-loc="${loc}" aria-current="${fd.loc === loc && !fd.q}">${icon}<span>${esc(label)}</span>${n != null ? `<span class="n">${n}</span>` : ""}</button>`;
+  $("fd-nav").innerHTML =
+    '<div class="fd-sec">Favorites</div>' +
+    link("root", SIDE_ICON.root, "Posts") +
+    link("all", SIDE_ICON.all, "All files", FILES.length) +
+    '<div class="fd-sec">Folders</div>' +
+    FOLDERS.map(f => link(f.id, SIDE_ICON.folder, f.name, f.files.length)).join("") +
+    '<div class="fd-sec">Tags</div>' +
+    TAGS.map(t => link("tag:" + t[0], `<span class="dot" style="background:${t[3]}"></span>`, t[1])).join("");
+}
+
+function fileTile(f) {
+  return `<a class="fd-item ${f.it.status}" href="${f.href}" title="${esc(f.p.title)}">
+    <span class="fd-icon"><span class="doc ${f.it.kind}" aria-hidden="true">${KIND[f.it.kind]}</span></span>
+    <span class="fd-name">${esc(f.name)}</span><span class="fd-sub ${f.it.status}">${STATUS[f.it.status]}</span></a>`;
+}
+
+function fileRow(f, parent) {
+  return `<a class="fd-row ${f.it.status}${parent ? " child" : ""}" href="${f.href}"${parent ? ` data-parent="${parent}"` : ""}>
+    <span class="nm"><span class="doc ${f.it.kind}" aria-hidden="true"></span><span>${esc(f.name)}</span></span>
+    <span class="cell ${f.it.status}">${STATUS[f.it.status]}</span><span class="cell">${KIND_NAME[f.it.kind]}</span></a>`;
+}
+
+const LIST_HEAD = '<div class="fd-head"><span>Name</span><span>Status</span><span>Kind</span></div>';
+
+function renderFinder(dir = 0, opened = null) {
+  const q = fd.q.trim().toLowerCase();
+  const here = q
+    ? { title: `Results for “${fd.q.trim()}”`, files: FILES.filter(f => [f.name, f.p.title, f.p.dek, f.it.code || "", f.it.dek || ""].join(" ").toLowerCase().includes(q)) }
+    : place(fd.loc);
+  $("fd-title").textContent = here.title;
+  $("fd-back").disabled = !fd.back.length;
+  $("fd-fwd").disabled = !fd.fwd.length;
+  $("fd-views").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === fdView));
+  renderSide();
+
+  let html;
+  if (here.folders) {
+    html = fdView === "grid"
+      ? `<div class="fd-grid">${here.folders.map(f => `<button class="fd-item" type="button" data-folder="${f.id}">
+          <span class="fd-icon">${FOLD}</span><span class="fd-name">${esc(f.name)}</span><span class="fd-sub">${plural(f.files.length)}</span></button>`).join("")}</div>`
+      : `<div class="fd-list">${LIST_HEAD}<div class="fd-rows">${here.folders.map(f => {
+          const open = fd.open.has(f.id), ready = f.files.filter(x => x.it.status === "ready").length;
+          return `<button class="fd-row" type="button" data-toggle="${f.id}" aria-expanded="${open}">
+            <span class="nm">${CHEV}${FOLD}<span>${esc(f.name)}</span></span><span class="cell">${ready} of ${f.files.length} ready</span><span class="cell">Folder</span></button>` +
+            (open ? f.files.map(x => fileRow(x, f.id)).join("") : "");
+        }).join("")}</div></div>`;
+  } else if (!here.files.length) {
+    html = `<div class="fd-empty">${q ? "No files match your search." : "This folder is empty."}</div>`;
+  } else {
+    html = fdView === "grid"
+      ? `<div class="fd-grid">${here.files.map(fileTile).join("")}</div>`
+      : `<div class="fd-list">${LIST_HEAD}<div class="fd-rows">${here.files.map(f => fileRow(f)).join("")}</div></div>`;
+  }
+  $("fd-body").innerHTML = html;
+
+  const crumbs = q ? [["", "Search"]] : here.folders ? [["root", "Posts"]] : here.inRoot ? [["root", "Posts"], [fd.loc, here.title]] : [[fd.loc, here.title]];
+  $("fd-crumbs").innerHTML = '<span>My English Journey</span><i>›</i>' + crumbs.map(([loc, label], i) =>
+    `<button type="button" data-loc="${loc}"${i === crumbs.length - 1 ? ' aria-current="true"' : ""}>${esc(label)}</button>`).join("<i>›</i>");
+  $("fd-count").textContent = plural((here.folders || here.files).length);
+
+  if (reduced()) return;
+  if (opened) {
+    // La carpeta se despliega: sus archivos bajan desde la fila
+    $("fd-body").querySelectorAll(`[data-parent="${opened}"]`).forEach((el, i) => el.animate(
+      [{ opacity: 0, transform: "translateY(-6px)" }, { opacity: 1, transform: "none" }],
+      { duration: 200, delay: i * 25, easing: EASE, fill: "backwards" }));
+  } else if (dir) {
+    // Entrar a una carpeta acerca; volver aleja
+    [...$("fd-body").querySelectorAll(".fd-item, .fd-row")].slice(0, 24).forEach((el, i) => el.animate(
+      [{ opacity: 0, transform: dir > 0 ? "scale(.9)" : "scale(1.06)" }, { opacity: 1, transform: "none" }],
+      { duration: 240, delay: i * 18, easing: EASE, fill: "backwards" }));
+  }
+}
+
+function go(loc) {
+  if (loc === fd.loc && !fd.q) return;
+  fd.back.push(fd.loc); fd.fwd = [];
+  fd.loc = loc; fd.q = ""; $("fd-q").value = "";
+  renderFinder(loc === "root" ? -1 : 1);
+}
+
+// Atrás y adelante, como las flechas del Finder
+function step(from, to, dir) {
+  if (!from.length) return;
+  to.push(fd.loc);
+  fd.loc = from.pop(); fd.q = ""; $("fd-q").value = "";
+  renderFinder(dir);
 }
 
 function readingTime(p) {
@@ -782,67 +1027,6 @@ function renderSite() {
   $("wotd-def").textContent = w.def[0].toUpperCase() + w.def.slice(1) + ".";
   $("wotd-from").textContent = "From “" + w.post.title + "” ›";
   $("wotd-from").href = "#" + w.post.slug;
-}
-
-function renderSeg() {
-  const html = FILTERS.map(([key, label, fn]) =>
-    `<button type="button" data-key="${key}" aria-pressed="${key === currentFilter}">${label}<span>${POSTS.filter(fn).length}</span></button>`
-  ).join("");
-  $("seg-list").innerHTML = html;
-  $("seg-active").innerHTML = html.replace(/aria-pressed="[^"]*"/g, 'tabindex="-1"');
-}
-
-function moveSeg(animate) {
-  const btn = $("seg-list").querySelector(`[data-key="${currentFilter}"]`);
-  const box = $("seg-active");
-  const left = btn.offsetLeft - 3;
-  const right = box.offsetWidth - left - btn.offsetWidth;
-  if (!animate) box.style.transition = "none";
-  box.style.clipPath = `inset(0 ${right}px 0 ${left}px round 999px)`;
-  if (!animate) { box.offsetWidth; box.style.transition = ""; }
-  updateFade();
-}
-
-// Desvanece el borde del filtro hacia donde quedan más opciones por deslizar
-function updateFade() {
-  const t = document.querySelector(".toolbar");
-  t.classList.toggle("more-left", t.scrollLeft > 2);
-  t.classList.toggle("more-right", t.scrollLeft + t.clientWidth < t.scrollWidth - 2);
-}
-
-function docIcons(p) {
-  return `<span class="docs" aria-hidden="true">${p.items.map(it => `<span class="doc ${it.kind}">${KIND[it.kind]}</span>`).join("")}</span>`;
-}
-
-function renderGrid(animate) {
-  const fn = FILTERS.find(f => f[0] === currentFilter)[2];
-  const list = POSTS.filter(fn);
-  $("items-meta").textContent = list.length + (list.length === 1 ? " item" : " items");
-  $("grid").innerHTML = list.map(p => {
-    const [cls, label] = postStatus(p);
-    const n = p.items.length;
-    return `
-    <a class="card" href="#${p.slug}">
-      <div class="top">${docIcons(p)}<span class="pill ${cls}">${label}</span></div>
-      <h3>${esc(p.title)}</h3>
-      <p>${esc(p.dek)}</p>
-      <div class="foot"><span>${esc(p.guide)}</span><span>${readingTime(p) || (n > 1 ? n + " evidences" : "1 evidence")}</span></div>
-    </a>`;
-  }).join("");
-  markSolo();
-  if (animate && !reduced()) {
-    [...$("grid").children].forEach((el, i) => el.animate(
-      [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
-      { duration: 240, delay: i * 30, easing: EASE, fill: "backwards" }
-    ));
-  }
-}
-
-// Si la última tarjeta queda sola en su fila, la estira a todo el ancho
-function markSolo() {
-  const cards = [...$("grid").children];
-  const cols = getComputedStyle($("grid")).gridTemplateColumns.split(" ").length;
-  cards.forEach((c, i) => c.classList.toggle("solo", cols > 1 && i === cards.length - 1 && i % cols === 0));
 }
 
 const ICONS = {
@@ -966,27 +1150,30 @@ function setupPlayer(root) {
 }
 
 function route() {
-  let slug = location.hash.slice(1);
-  if (ALIASES[slug]) { history.replaceState(null, "", "#" + ALIASES[slug]); slug = ALIASES[slug]; }
+  let [slug, sub] = location.hash.slice(1).split("/");
+  if (ALIASES[slug]) { slug = ALIASES[slug]; history.replaceState(null, "", "#" + slug + (sub ? "/" + sub : "")); }
   const p = POSTS.find(x => x.slug === slug);
   const wasReading = !$("reader").hidden;
-  const leftSlug = readingSlug;
+  const leftHash = readingHash;
   if (!p) document.querySelectorAll(".player audio").forEach(a => a.pause());
   $("home").hidden = !!p;
   $("reader").hidden = !p;
   document.title = p ? p.title + " · My English Journey" : "My English Journey";
-  readingSlug = p ? p.slug : null;
+  readingHash = p ? location.hash : null;
 
   if (p) {
     renderPost(p);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    // Si se abrió una evidencia que no es la primera, el lector va directo a ella
+    const ev = sub > 0 && $("post").querySelectorAll(".evidence")[sub];
+    if (ev) ev.scrollIntoView({ block: "start", behavior: "instant" });
+    else window.scrollTo({ top: 0, behavior: "instant" });
     if (reduced()) {
       $("reader").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: "ease" });
     } else if (wasReading) {
       // Entre entradas: fundido con un poco de desenfoque para que se lea como un solo cambio
       $("post").animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)" }], { duration: 220, easing: EASE });
     } else {
-      // Desde una tarjeta: la ventana nace desde donde se tocó
+      // Desde un archivo: la ventana nace desde donde se tocó
       const r = $("reader").getBoundingClientRect();
       if (lastCard) $("reader").style.transformOrigin = `${lastCard.x - r.left}px ${lastCard.y - (r.top + scrollY)}px`;
       $("reader").animate([{ opacity: 0, transform: "scale(.94)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: EASE });
@@ -995,14 +1182,13 @@ function route() {
   } else {
     if (wasReading) {
       $("home").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
-      requestAnimationFrame(() => { moveSeg(false); markSolo(); });
-      // Se vuelve por el mismo camino: a la tarjeta de la entrada que se estaba leyendo
-      const card = (slug === "posts" || slug === "") && leftSlug && $("grid").querySelector(`a[href="#${leftSlug}"]`);
-      if (card) {
+      // Se vuelve por el mismo camino: al archivo que se estaba leyendo, en la misma carpeta del Finder
+      const file = (slug === "posts" || slug === "") && leftHash && $("fd-body").querySelector(`a[href="${leftHash}"]`);
+      if (file) {
         requestAnimationFrame(() => {
-          card.scrollIntoView({ block: "center", behavior: "instant" });
-          if (!reduced()) card.animate(
-            [{ transform: "scale(1.04)", opacity: .4 }, { transform: "none", opacity: 1 }],
+          file.scrollIntoView({ block: "center", behavior: "instant" });
+          if (!reduced()) file.animate(
+            [{ transform: "scale(1.08)", opacity: .4 }, { transform: "none", opacity: 1 }],
             { duration: 260, easing: EASE }
           );
         });
@@ -1014,36 +1200,55 @@ function route() {
   }
 }
 
-$("grid").addEventListener("click", e => {
-  const card = e.target.closest(".card");
-  if (!card) return;
-  const r = card.getBoundingClientRect();
+$("fd-body").addEventListener("click", e => {
+  const folder = e.target.closest("[data-folder]");
+  if (folder) return go(folder.dataset.folder);
+  const row = e.target.closest("[data-toggle]");
+  if (row) {
+    const id = row.dataset.toggle;
+    const opening = !fd.open.has(id);
+    opening ? fd.open.add(id) : fd.open.delete(id);
+    renderFinder(0, opening ? id : null);
+    $("fd-body").querySelector(`[data-toggle="${id}"]`).focus();
+    return;
+  }
+  const file = e.target.closest("a");
+  if (!file) return;
+  const r = file.getBoundingClientRect();
   lastCard = { x: r.left + r.width / 2, y: r.top + scrollY + r.height / 2 };
 });
-$("seg-list").addEventListener("click", e => {
-  const b = e.target.closest("button");
-  if (!b || b.dataset.key === currentFilter) return;
-  currentFilter = b.dataset.key;
-  $("seg-list").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-  moveSeg(true);
+$("fd-nav").addEventListener("click", e => {
+  const b = e.target.closest("[data-loc]");
+  if (!b) return;
+  go(b.dataset.loc);
   b.scrollIntoView({ inline: "nearest", block: "nearest", behavior: reduced() ? "instant" : "smooth" });
-  renderGrid(true);
 });
-document.querySelector(".toolbar").addEventListener("scroll", updateFade, { passive: true });
+$("fd-crumbs").addEventListener("click", e => {
+  const b = e.target.closest("[data-loc]");
+  if (b && b.dataset.loc && !b.hasAttribute("aria-current")) go(b.dataset.loc);
+});
+$("fd-back").addEventListener("click", () => step(fd.back, fd.fwd, -1));
+$("fd-fwd").addEventListener("click", () => step(fd.fwd, fd.back, 1));
+$("fd-views").addEventListener("click", e => {
+  const b = e.target.closest("[data-view]");
+  if (!b || b.dataset.view === fdView) return;
+  fdView = b.dataset.view;
+  try { localStorage.setItem("fd-view", fdView); } catch {}
+  renderFinder(0);
+  if (!reduced()) $("fd-body").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing: "ease" });
+});
+$("fd-q").addEventListener("input", e => { fd.q = e.target.value; renderFinder(0); });
+$("fd-q").addEventListener("keydown", e => { if (e.key === "Escape" && fd.q) { e.target.value = fd.q = ""; renderFinder(0); } });
 $("back").addEventListener("click", () => { location.hash = "posts"; });
 $("copy-email").addEventListener("click", async e => {
   try { await navigator.clipboard.writeText(SITE.email); e.target.textContent = "Copied"; setTimeout(() => e.target.textContent = "Copy", 1600); }
   catch { const r = document.createRange(); r.selectNodeContents($("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 });
 window.addEventListener("hashchange", route);
-window.addEventListener("resize", () => { moveSeg(false); markSolo(); });
-document.fonts && document.fonts.ready.then(() => moveSeg(false));
 
 renderSite();
-renderSeg();
-renderGrid(false);
+renderFinder();
 route();
-moveSeg(false);
 </script>
 </body>
 </html>
