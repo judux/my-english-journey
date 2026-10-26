@@ -248,6 +248,14 @@ article.post { max-width: 680px; margin: 0 auto; padding: 48px 24px 24px; }
 .ev-code { font: 500 .75rem/1.3 var(--mono); color: var(--muted); }
 .evidence h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin-top: 2px; }
 .ev-dek { color: var(--muted); margin: 12px 0 0; }
+.letter {
+  padding: 34px 32px; border-radius: 6px; background: var(--win); font-size: 1.0625rem;
+  box-shadow: 0 0 0 1px var(--line), 0 18px 36px -24px rgba(0, 0, 0, .4);
+}
+.letter .from, .letter .to { font: .875rem/1.5 var(--ui); color: var(--muted); }
+.letter .from { text-align: right; }
+.letter .sign { margin: 1.6em 0 0; }
+@media (max-width: 760px) { .letter { padding: 24px 18px; } }
 figure.media { margin: 32px 0; }
 .media .sheet {
   display: block; border-radius: 12px; overflow: hidden;
@@ -508,14 +516,30 @@ const POSTS = [
         dek: "A presentation video about a place visitors should know."
       },
       {
-        code: "GA2-240202501-AA2-EV03", kind: "slides", status: "pending",
-        title: "My Cover Letter",
-        dek: "A letter in English to apply for a job."
+        code: "GA2-240202501-AA2-EV03", kind: "text", status: "ready",
+        title: "My Cover Letter: Junior Web Developer",
+        dek: "A letter to apply for a job at Pixel & Prompt, a fictional company that builds products with AI.",
+        body: `
+<div class="letter">
+<p class="from">Johan David Sanchez Romo<br>johandavidromoro@gmail.com<br>October 25, 2026</p>
+<p class="to">Hiring Team<br>Pixel &amp; Prompt<br>Re: Junior Web Developer position</p>
+<p>Dear Hiring Team,</p>
+<p>I am writing to <em class="v">apply for</em> the Junior Web Developer position at Pixel &amp; Prompt. I am an apprentice in Software Analysis and Development (ADSO) at SENA, and I am passionate about building web applications that are useful, fast and beautiful. When I read that your team creates products with artificial intelligence and really cares about design, I knew I wanted to be part of it.</p>
+<p>During my training I have learned to analyze user requirements, write clean code, manage databases and work with agile methodologies. Outside class, I build my own projects. My favorite one is mi Sancho, a personal finance web app for families made with Angular and Firebase. I worked on its visual design, its animations and its accessibility, and I develop it with AI coding assistants. Working with AI taught me to explain problems clearly, to review the code carefully and to never accept a solution without testing it first.</p>
+<p>I also believe that good taste matters. A product can work well and still feel bad to use. That is why I pay <em class="v">attention to detail</em>: the speed of an animation, the size of a button, the words on the screen. I made this English blog with the same idea.</p>
+<p>I am a <em class="v">fast learner</em>, I enjoy solving problems, and I use English every day to read documentation, write commit messages and learn from other developers. I would be very happy to show you my projects in an interview.</p>
+<p>Thank you for your time and consideration.</p>
+<p class="sign">Sincerely,<br>Johan David Sanchez Romo</p>
+</div>`
       }
     ],
     vocab: [
       ["landmark", "a famous place that is easy to recognize"],
-      ["cover letter", "a letter you send with your CV when you apply for a job"]
+      ["cover letter", "a letter you send with your CV when you apply for a job"],
+      ["apply for", "to ask formally for a job"],
+      ["hiring team", "the people who choose new employees"],
+      ["attention to detail", "being careful with small things"],
+      ["fast learner", "a person who learns new things quickly"]
     ]
   },
   {
