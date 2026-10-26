@@ -167,6 +167,26 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 .stats div { font-size: .8125rem; color: var(--hero-muted); }
 .stats b { display: block; font: 700 1.5rem/1.1 var(--display); color: var(--hero-ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 
+/* Retrato sin fondo: se apoya en el borde inferior de la ventana, con un halo cálido detrás.
+   La nota de la palabra del día queda pegada encima, sobre el hombro. */
+.me { position: relative; align-self: end; display: grid; justify-items: center; margin-bottom: -44px; min-width: 0; }
+.me::before {
+  content: ""; position: absolute; top: 2%; left: 50%; width: min(118%, 420px); aspect-ratio: 1; translate: -50% 0; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--hi) 26%, transparent), color-mix(in srgb, var(--hi) 8%, transparent) 60%, transparent);
+  pointer-events: none;
+}
+.me img { position: relative; display: block; width: 100%; max-width: 300px; height: auto; filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .5)); }
+.me .note { position: absolute; z-index: 1; left: -150px; bottom: 18px; width: 204px; padding: 18px 18px 16px; }
+/* Pantallas medianas: el texto ocupa todo el ancho y debajo van la nota y el retrato lado a lado */
+@media (max-width: 1040px) {
+  .hero-body { grid-template-columns: 1fr; gap: 28px; }
+  .me { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 36px; }
+  .me::before { left: auto; right: -50px; translate: none; width: 400px; top: 0; }
+  .me img { max-width: 280px; }
+  .me .note { position: relative; left: auto; bottom: auto; width: 100%; max-width: 300px; justify-self: end; align-self: center; padding: 22px 22px 20px; }
+  .me .note .word { font-size: 2rem; }
+}
+.me .note .word { font-size: 1.625rem; }
 .note {
   background: var(--hi); color: var(--hi-ink); padding: 22px 22px 20px; border-radius: 6px;
   transform: rotate(2.5deg); box-shadow: 0 18px 30px -14px rgba(0, 0, 0, .6);
@@ -444,6 +464,10 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   .menubar nav { display: none; }
   .hero-body { grid-template-columns: 1fr; padding: 32px 22px 28px; gap: 32px; }
   .note { transform: rotate(1.5deg); }
+  .me { margin-bottom: -28px; grid-template-columns: 1fr; gap: 0; justify-items: center; }
+  .me::before { top: 30%; left: 50%; right: auto; translate: -50% 0; width: min(118%, 420px); }
+  .me img { max-width: 260px; }
+  .me .note { max-width: none; justify-self: stretch; margin-bottom: 26px; }
   /* La Mac en el celular: sin barra lateral; sus accesos pasan a una fila de chips bajo la barra */
   .mac { padding: 7px; border-radius: 20px; }
   .mac::after { left: -10px; right: -10px; bottom: -11px; height: 11px; }
@@ -520,6 +544,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
             <div><b id="count-words">0</b>new words</div>
           </div>
         </div>
+        <div class="me">
         <aside class="note" aria-label="Word of the day">
           <small>Word of the day</small>
           <div class="word" id="wotd-word"></div>
@@ -527,6 +552,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <p id="wotd-def"></p>
           <a id="wotd-from" href="#"></a>
         </aside>
+        <img src="me.webp" alt="Portrait of Johan Sanchez" width="720" height="1131" decoding="async" fetchpriority="high">
+        </div>
       </div>
     </section>
 
