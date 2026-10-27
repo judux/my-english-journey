@@ -169,24 +169,24 @@ main.wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
 
 /* Retrato sin fondo: se apoya en el borde inferior de la ventana, con un halo cálido detrás.
    La nota de la palabra del día queda pegada encima, sobre el hombro. */
-.me { position: relative; align-self: end; display: grid; justify-items: center; margin-bottom: -44px; min-width: 0; }
+.me { position: relative; align-self: end; display: grid; justify-items: end; margin: 0 -44px -44px 0; min-width: 0; }
 .me::before {
-  content: ""; position: absolute; top: 2%; left: 50%; width: min(118%, 420px); aspect-ratio: 1; translate: -50% 0; border-radius: 50%;
+  content: ""; position: absolute; top: 2%; right: -40px; width: 420px; aspect-ratio: 1; border-radius: 50%;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--hi) 26%, transparent), color-mix(in srgb, var(--hi) 8%, transparent) 60%, transparent);
   pointer-events: none;
 }
-.me img { position: relative; display: block; width: 100%; max-width: 300px; height: auto; filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .5)); }
-.me .note { position: absolute; z-index: 1; left: -150px; bottom: 18px; width: 204px; padding: 18px 18px 16px; }
+.me img { position: relative; display: block; width: 100%; max-width: 330px; height: auto; filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .5)); }
+.me .note { position: absolute; z-index: 1; left: -88px; bottom: 30px; width: 204px; padding: 18px 18px 16px; }
+.me .note .word { font-size: 1.625rem; }
 /* Pantallas medianas: el texto ocupa todo el ancho y debajo van la nota y el retrato lado a lado */
 @media (max-width: 1040px) {
   .hero-body { grid-template-columns: 1fr; gap: 28px; }
   .me { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 36px; }
-  .me::before { left: auto; right: -50px; translate: none; width: 400px; top: 0; }
-  .me img { max-width: 280px; }
+  .me::before { right: -50px; width: 400px; top: 0; }
+  .me img { max-width: 300px; }
   .me .note { position: relative; left: auto; bottom: auto; width: 100%; max-width: 300px; justify-self: end; align-self: center; padding: 22px 22px 20px; }
   .me .note .word { font-size: 2rem; }
 }
-.me .note .word { font-size: 1.625rem; }
 .note {
   background: var(--hi); color: var(--hi-ink); padding: 22px 22px 20px; border-radius: 6px;
   transform: rotate(2.5deg); box-shadow: 0 18px 30px -14px rgba(0, 0, 0, .6);
@@ -464,7 +464,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   .menubar nav { display: none; }
   .hero-body { grid-template-columns: 1fr; padding: 32px 22px 28px; gap: 32px; }
   .note { transform: rotate(1.5deg); }
-  .me { margin-bottom: -28px; grid-template-columns: 1fr; gap: 0; justify-items: center; }
+  .me { margin: 0 0 -28px; grid-template-columns: 1fr; gap: 0; justify-items: center; }
   .me::before { top: 30%; left: 50%; right: auto; translate: -50% 0; width: min(118%, 420px); }
   .me img { max-width: 260px; }
   .me .note { max-width: none; justify-self: stretch; margin-bottom: 26px; }
